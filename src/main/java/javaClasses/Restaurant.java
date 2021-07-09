@@ -15,6 +15,11 @@ public class Restaurant {
         this.numTable=numTable;
         this.rating=rating;
     }
-
+    public String getName(){return name;}
+    public String getPassword(){return password;}
+    public String getId(){return id;}
+    public String getMenu(){return menu};
+    public int getNumTable(){return numTable};
+    public double getRating(){return rating};
 
 }
