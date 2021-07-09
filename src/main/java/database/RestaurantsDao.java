@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class RestaurantsDao {
+    Statement statement;
 
     public RestaurantsDao(){
 
@@ -23,7 +24,7 @@ public class RestaurantsDao {
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             String tempString = "select * from " + str + ";";
             result = statement.executeQuery(tempString);
         } catch (SQLException throwables) {
@@ -33,13 +34,44 @@ public class RestaurantsDao {
     }
 
 
-//    public void updateStatement(User user) throws SQLException {
-//
-//        String command = "INSERT INTO metropolises VALUES (" + "\"" + metropolis.getMetropolis() + "\"" + "," +
-//                "\"" + metropolis.getContinent() + "\"" + "," +
-//                metropolis.getPopulation() + ");";
-//
-//        statement.executeUpdate(command);
-//    }
+    //gets product from sql database by id
+    public User getUserByUsername(String thisUserName){
+        String strForResultSet = "";
+        User user = null;
+        if (user.isAdmin()){
+            strForResultSet = "restaurants";
+        } else {
+            strForResultSet = "users";
+        }
+        ResultSet result = getResultSet(strForResultSet);
+
+        try {
+            while (result.next()) {
+                String currUserName = result.getString("username");
+                if (currUserName.equals(thisUserName)) {
+                    String username = result.getString("username");
+                    String password = result.getString("password");
+                    boolean isAdmin = result.getBoolean("type");
+                    int restaurantId = result.getInt("restaurantid");
+
+                    user = new User(username, password, isAdmin, restaurantId);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
+
+
+
+    public void updateStatement(User user) throws SQLException {
+
+        String command = "INSERT INTO users VALUES (" + "\"" + user.getUsername() + "\"" + "," +
+                "\"" + user.getPassword() + "\"" + "," + "\"" + user.isAdmin() + "\"" + "," +
+                user.getRestaurantId() + ");";
+
+        statement.executeUpdate(command);
+    }
 
 }
