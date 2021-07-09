@@ -4,9 +4,9 @@ public class User {
     private String username;
     private String password;
     private boolean admin;
-    private int restaurantId;
+    private String restaurantId;
 
-    public User(String username, String password, boolean admin, int restaurantId) {
+    public User(String username, String password, boolean admin, String restaurantId) {
         this.username = username;
         this.password = password;
         this.admin = admin;
@@ -25,7 +25,7 @@ public class User {
         return admin;
     }
 
-    public int getRestaurantId() {
+    public String getRestaurantId() {
         return restaurantId;
     }
 }

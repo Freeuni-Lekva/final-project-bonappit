@@ -50,7 +50,7 @@ public class RestaurantsDao {
                     String username = result.getString("username");
                     String password = result.getString("password");
                     boolean isAdmin = result.getBoolean("type");
-                    int restaurantId = result.getInt("restaurantid");
+                    String restaurantId = result.getString("restaurantid");
 
                     user = new User(username, password, isAdmin, restaurantId);
                 }
@@ -60,14 +60,43 @@ public class RestaurantsDao {
         }
         return user;
     }
-
+    public Restaurant getRestaurantById(String restaurantId){
+        String strForResultSet = "";
+        Restaurant res = null;
+        ResultSet result = getResultSet("restaurants");
+        ResultSet result1 = getResultSet("visits");
+        int rating=0;
+        int n=0;
+        try {
+            while (result.next()) {
+                String curr= result.getString("restaurantid");
+                if (curr.equals(restaurantId)) {
+                    String id = result.getString("restaurantid");
+                    String name = result.getString("name");
+                    String menu = result.getString("menu");
+                    int numTable = result.getInt("numtables");
+                          while (result1.next()){
+                              String curr1= result1.getString("restaurantid");
+                              if(curr1.equals(restaurantId)){
+                                  n++;
+                                  rating=result1.getInt("rating");
+                              }
+                          }
+                    res = new Restaurant(name,id,menu,numTable,rating/n);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
+    }
     public void updateStatement(User user) throws SQLException {
         try {
             PreparedStatement ps = connection.prepareStatement(insertUser);
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setBoolean(3, user.isAdmin());
-            ps.setInt(4, user.getRestaurantId());
+            ps.setString(4, user.getRestaurantId());
 
             ps.executeUpdate();
         } catch (SQLException throwable) {
