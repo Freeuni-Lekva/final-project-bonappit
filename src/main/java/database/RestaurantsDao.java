@@ -40,21 +40,12 @@ public class RestaurantsDao {
     public User getUserByUsername(String thisUserName){
         String strForResultSet = "";
         User user = null;
-        if (user.isAdmin()){
-            strForResultSet = "restaurants";
-        } else {
-            strForResultSet = "users";
-        }
-        ResultSet result = getResultSet(strForResultSet);
+        ResultSet result = getResultSet("users");
 
         try {
             while (result.next()) {
-                String currUserName="";
-                if(strForResultSet=="restaurants"){
-                    currUserName = result.getString("restaurantid");
-                }else {
-                    currUserName = result.getString("username");
-                }
+
+                String currUserName = result.getString("username");
                 if (currUserName.equals(thisUserName)) {
                     String username = result.getString("username");
                     String password = result.getString("password");
