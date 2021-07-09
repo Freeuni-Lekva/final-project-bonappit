@@ -49,7 +49,12 @@ public class RestaurantsDao {
 
         try {
             while (result.next()) {
-                String currUserName = result.getString("username");
+                String currUserName="";
+                if(strForResultSet=="restaurants"){
+                    currUserName = result.getString("restaurantid");
+                }else {
+                    currUserName = result.getString("username");
+                }
                 if (currUserName.equals(thisUserName)) {
                     String username = result.getString("username");
                     String password = result.getString("password");
