@@ -14,7 +14,7 @@
 <p>Please enter requested data</p><br>
 <form action="adminRegitration" method="post">
     <label for="RestaurantName">User Name:</label>
-    <input type="text" id="RestaurantName" name="RestaurantName"><br>
+    <input type="text" id="RestaurantName" name="RestaurantName">
     <br></br>
     <label for="Password">Password:</label>
     <input type="text" id="Password" name="Password">
