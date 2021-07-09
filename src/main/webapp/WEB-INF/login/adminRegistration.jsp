@@ -10,9 +10,9 @@
 <head>
     <title>Admin Registration</title>
 </head>
-<h1>Add new javaClasses.Restaurant</h1>
-<p>Please Enter Name And Password</p><br>
-<form action="Registartion" method="post">
+<h1>Admin Registration</h1>
+<p>Please enter requested data</p><br>
+<form action="adminRegitration" method="post">
     <label for="RestaurantName">User Name:</label>
     <input type="text" id="RestaurantName" name="RestaurantName"><br>
     <label for="Password">Password:</label>
@@ -23,6 +23,9 @@
     <input type="text" id="Menu" name="Menu">
     <input type="submit" value="Login">
 </form>
+
+<a href="createAccount">go back </a>
+
 </body>
 </html>
 
