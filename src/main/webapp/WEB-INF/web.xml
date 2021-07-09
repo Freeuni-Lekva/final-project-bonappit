@@ -29,7 +29,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>adminRegistration</servlet-name>
-    <url-pattern>/restaurantRegistration</url-pattern>
+    <url-pattern>/adminRegistration</url-pattern>
   </servlet-mapping>
 
 

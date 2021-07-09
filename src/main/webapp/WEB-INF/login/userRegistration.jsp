@@ -17,6 +17,7 @@
   <form action="userResgistration" method="post">
     <label for="username">User Name:</label>
     <input type="text" id="username" name="username"><br>
+    <br></br>
     <label for="password">Password:</label>
     <input type="text" id="password" name="password">
     <input type="submit" value="Login">

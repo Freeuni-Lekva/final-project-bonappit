@@ -15,10 +15,13 @@
 <form action="adminRegitration" method="post">
     <label for="RestaurantName">User Name:</label>
     <input type="text" id="RestaurantName" name="RestaurantName"><br>
+    <br></br>
     <label for="Password">Password:</label>
     <input type="text" id="Password" name="Password">
+    <br></br>
     <label for="NumberTable">Number Table:</label>
     <input type="text" id="NumberTable" name="NumberTable">
+    <br></br>
     <label for="Menu">Menu:</label>
     <input type="text" id="Menu" name="Menu">
     <input type="submit" value="Login">
