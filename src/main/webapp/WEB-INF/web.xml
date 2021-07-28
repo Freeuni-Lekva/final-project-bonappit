@@ -14,6 +14,10 @@
     <servlet-class>listeners.CreateUserServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>createAdmin</servlet-name>
+    <servlet-class>listeners.CreateRestaurantServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>adminRegistration</servlet-name>
     <jsp-file>/WEB-INF/login/adminRegistration.jsp</jsp-file>
   </servlet>
@@ -26,6 +30,10 @@
   <servlet-mapping>
     <servlet-name>createAccount</servlet-name>
     <url-pattern>/createAccount</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>createAdmin</servlet-name>
+    <url-pattern>/createAdmin</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>adminRegistration</servlet-name>

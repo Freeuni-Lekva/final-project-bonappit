@@ -1,17 +1,20 @@
 <%--
   Created by IntelliJ IDEA.
-  User: user
-  Date: 7/9/2021
-  Time: 2:15 PM
+  User: User
+  Date: 28-Jul-21
+  Time: 4:16 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Admin Registration</title>
+    <title>Create Account</title>
 </head>
-<h1>Admin Registration</h1>
-<p>Please enter requested data</p><br>
+<body>
+<h1>The Name <%= request.getParameter("username")%> is Already In Use</h1>
+
+<p>Please enter another username</p><br>
+
 <form action="createAdmin" method="post">
     <label for="restaurantName">Restaurant Name:</label>
     <input type="text" id="restaurantName" name="restaurantName">
@@ -34,4 +37,3 @@
 
 </body>
 </html>
-

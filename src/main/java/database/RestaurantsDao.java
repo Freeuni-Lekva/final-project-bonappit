@@ -7,7 +7,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import java.sql.*;
 
 public class RestaurantsDao {
-    Statement statement;
+    private Statement statement;
     private Connection connection;
     private static final String insertSt = "insert into restaurants values (?, ?, ?,?);";
     private static final String insertUser = "insert into users values (?, ?, ?,?);";
@@ -60,6 +60,26 @@ public class RestaurantsDao {
         }
         return user;
     }
+
+
+    public String getLastId(){
+        String strForResultSet = "";
+        String resultId = "";
+
+        ResultSet result = getResultSet("restaurants");
+        try {
+            while (result.next()) {
+                if (result.isLast()) {
+                    resultId = result.getString("restaurantid");
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return resultId;
+    }
+
+
     public Restaurant getRestaurantById(String restaurantId){
         String strForResultSet = "";
         Restaurant res = null;
@@ -90,6 +110,8 @@ public class RestaurantsDao {
         }
         return res;
     }
+
+
     public void addUser(User user) throws SQLException {
         try {
             PreparedStatement ps = connection.prepareStatement(insertUser);
@@ -104,6 +126,7 @@ public class RestaurantsDao {
         }
     }
 
+
     public void addRestaurant(Restaurant res) {
         try {
             PreparedStatement ps = connection.prepareStatement(insertSt);
@@ -117,5 +140,4 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
     }
-
 }
