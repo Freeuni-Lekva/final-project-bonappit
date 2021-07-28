@@ -14,13 +14,13 @@
 
   <p>Please enter requested data</p><br>
 
-  <form action="userResgistration" method="post">
+  <form action="createAccount" method="post">
     <label for="username">User Name:</label>
     <input type="text" id="username" name="username">
     <br></br>
     <label for="password">Password:</label>
     <input type="text" id="password" name="password">
-    <input type="submit" value="Login">
+    <input type="submit" value="Register">
   </form>
 
 <a href="adminRegistration">Register as restaurant </a>

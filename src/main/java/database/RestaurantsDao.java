@@ -90,7 +90,7 @@ public class RestaurantsDao {
         }
         return res;
     }
-    public void updateStatement(User user) throws SQLException {
+    public void addUser(User user) throws SQLException {
         try {
             PreparedStatement ps = connection.prepareStatement(insertUser);
             ps.setString(1, user.getUsername());

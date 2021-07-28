@@ -24,10 +24,10 @@
     <br></br>
     <label for="Menu">Menu:</label>
     <input type="text" id="Menu" name="Menu">
-    <input type="submit" value="Login">
+    <input type="submit" value="Register">
 </form>
 
-<a href="createAccount">go back </a>
+<a href="loginServlet">return to login </a>
 
 </body>
 </html>
