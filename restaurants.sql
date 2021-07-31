@@ -27,7 +27,8 @@ CREATE TABLE users (
 
 INSERT INTO users VALUES
 	("saba","saba",true, "1"),
-	("beqa", "beqa",false,"-1");
+	("beqa", "beqa",false,"-1"),
+    ("levani", "levani", true, "2");
 
 
 DROP TABLE IF EXISTS visits;
@@ -41,7 +42,8 @@ CREATE TABLE visits (
 );
 
 INSERT INTO visits VALUES
-	("beqa", "1", 1, 9.5);
+	("beqa", "1", 1, 9.5),
+    ("beqa", "2", 1, 8);
 
 select * from restaurants;
 select * from users;

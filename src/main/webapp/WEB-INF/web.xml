@@ -21,6 +21,14 @@
     <servlet-name>adminRegistration</servlet-name>
     <jsp-file>/WEB-INF/login/adminRegistration.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>restaurantPage</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/restaurantPage.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>chatPge</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/chatPage.jsp</jsp-file>
+  </servlet>
 
 
   <servlet-mapping>
@@ -38,6 +46,14 @@
   <servlet-mapping>
     <servlet-name>adminRegistration</servlet-name>
     <url-pattern>/adminRegistration</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>restaurantPage</servlet-name>
+    <url-pattern>/restaurantPage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>chatPge</servlet-name>
+    <url-pattern>/chatPge</url-pattern>
   </servlet-mapping>
 
 

@@ -5,6 +5,8 @@ import javaClasses.User;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RestaurantsDao {
     private Statement statement;
@@ -85,30 +87,73 @@ public class RestaurantsDao {
         Restaurant res = null;
         ResultSet result = getResultSet("restaurants");
         ResultSet result1 = getResultSet("visits");
-        int rating=0;
-        int n=0;
+
         try {
             while (result.next()) {
                 String curr= result.getString("restaurantid");
                 if (curr.equals(restaurantId)) {
-                    String id = result.getString("restaurantid");
-                    String name = result.getString("name");
-                    String menu = result.getString("menu");
-                    int numTable = result.getInt("numtables");
-                          while (result1.next()){
-                              String curr1= result1.getString("restaurantid");
-                              if(curr1.equals(restaurantId)){
-                                  n++;
-                                  rating=result1.getInt("rating");
-                              }
-                          }
-                    res = new Restaurant(name,id,menu,numTable,rating/n);
+                    res = takeRestaurant(result, result1);
                 }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return res;
+    }
+
+
+
+    //returns all user from database
+    public List<Restaurant> getRestaurants(){
+        List<Restaurant> restaurants = new ArrayList<>();
+        ResultSet result = getResultSet("restaurants");
+        ResultSet result1 = getResultSet("visits");
+
+        try {
+            while (result.next()) {
+                Restaurant restaurant = takeRestaurant(result, result1);
+
+                restaurants.add(restaurant);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return restaurants;
+    }
+
+    //private void to take restaurant from database
+    private Restaurant takeRestaurant(ResultSet result, ResultSet result1) {
+        Restaurant restaurant = null;
+        double rating = 0;
+        double n = 0;
+
+        try {
+            String id = result.getString("restaurantid");
+            String name = result.getString("name");
+            String menu = result.getString("menufile");
+            int numTable = result.getInt("numtables");
+
+            while (result1.next()) {
+                String curr1 = result1.getString("restaurantid");
+                if (curr1.equals(id)) {
+                    n++;
+                    rating += result1.getDouble("rating");
+                }
+            }
+            if(n == 0)
+                rating = -1;
+            else
+                rating = rating/n;
+
+            restaurant = new Restaurant(name, id, menu, numTable, rating);
+
+        } catch (SQLException throwables) {
+        throwables.printStackTrace();
+        }
+
+        return restaurant;
     }
 
 
