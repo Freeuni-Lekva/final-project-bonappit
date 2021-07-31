@@ -32,7 +32,12 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         if (currUser.getPassword().equals(password)) {
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp");
+            RequestDispatcher requestDispatcher;
+            if(currUser.isAdmin()) {
+                requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/adminHomePage.jsp");
+            } else {
+                requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp");
+            }
             requestDispatcher.forward(req, resp);
         } else {
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/login/illegalAccount.jsp");

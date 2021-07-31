@@ -38,7 +38,7 @@ public class CreateRestaurantServlet extends HttpServlet {
             try {
                 restaurantsDao.addRestaurant(newRestaurant);
                 restaurantsDao.addUser(newUser);
-                req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp").forward(req, resp);
+                req.getRequestDispatcher("WEB-INF/welcomePage/adminHomePage.jsp").forward(req, resp);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
