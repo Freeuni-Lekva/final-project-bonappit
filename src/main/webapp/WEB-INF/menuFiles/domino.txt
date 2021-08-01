@@ -1,0 +1,8 @@
+pizza A  $20
+pizza B  $25
+pizza C  $30
+pizza D  $25
+pizza E  $35
+drink a  $1.5
+drink b  $2.5
+drink c  $3

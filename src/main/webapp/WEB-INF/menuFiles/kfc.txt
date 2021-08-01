@@ -1,0 +1,14 @@
+Chicken Pieces one  $2.09
+Chicken Pieces two  $3.39
+Chicken Pieces three  $4.49
+Large Popcorn Chicken  $4.19
+Boneless Dips three  $4.49
+Boneless Dips four  $5.49
+Fries small  $1.39
+Frues large  $2.19
+BBQ Beans small  $1.39
+BBQ Beans large  $2.19
+Orange Juice  $1.59
+Pepsi small  $1.09
+Pepsi medium  $1.73
+Pepsi large  $2.58

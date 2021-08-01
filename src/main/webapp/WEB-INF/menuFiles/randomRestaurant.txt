@@ -1,0 +1,8 @@
+randomrastourant A  $20
+randomrastourant B  $25
+randomrastourant C  $30
+randomrastourant D  $25
+randomrastourant E  $35
+randomrastourant drink1  $1.5
+randomrastourant drink2  $2.5
+randomrastourant drink3  $3
