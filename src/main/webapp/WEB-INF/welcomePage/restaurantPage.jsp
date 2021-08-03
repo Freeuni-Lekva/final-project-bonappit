@@ -35,12 +35,29 @@
     <p>Please, choose menu </p>
 
     <table>
-        <c:forEach items="${menuList}" var="product">
-            <tr>
-                <td> value="${product.key}"></td>
-                <td> value="${product.value}"> </td>
-            </tr>
-        </c:forEach>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>choose product</th>
+        </tr>
+
+       <%
+           for(int i = 0; i < menuList.size(); i++){
+               out.print("<tr><td>" + menuList.get(i).getProductName() + "</td>");
+               out.print("<td>" +"$" + menuList.get(i).getProductPrice() + "</td>");
+               Product currProduct = menuList.get(0);
+               out.print("<td>");
+       %>
+
+        <form action="addToMenu" method="post">
+            <input type="hidden" name="productName" value="<%=currProduct.getProductName()%>"/>
+            <input type="hidden" name="productPrice" value="<%=currProduct.getProductPrice()%>">
+            <button type="submit"> Add to Menu </button>
+
+        <%
+                out.print("</td></tr>");
+            }
+        %>
     </table>
 
 </body>
