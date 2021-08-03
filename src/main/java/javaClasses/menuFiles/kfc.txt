@@ -12,3 +12,4 @@ Orange Juice  $1.59
 Pepsi small  $1.09
 Pepsi medium  $1.73
 Pepsi large  $2.58
+---

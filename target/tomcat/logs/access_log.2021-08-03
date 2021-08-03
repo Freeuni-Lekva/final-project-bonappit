@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [03/Aug/2021:14:50:25 +0400] "GET /restaurantPage?id=2 HTTP/1.1" 200 416 http-bio-8080-exec-1 920
+0:0:0:0:0:0:0:1 - - [03/Aug/2021:14:50:25 +0400] "GET /restaurantPage?id=2 HTTP/1.1" 200 416 http-bio-8080-exec-2 673
