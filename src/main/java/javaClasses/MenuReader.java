@@ -1,18 +1,21 @@
 package javaClasses;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuReader {
+    private final static String fileEnding = "---";
 
 
-    public Map<String, Integer> readMenu(String fileName){
-        Map<String, Integer> result = new HashMap<>();
-        File file = new File("webapp/WEB-INF/menuFiles/" + fileName);
-        System.out.println(file.toString());
+    public List<Product> readMenu(String fileName){
+        List<Product> result = new ArrayList<>();
+
+        File tempFile = new File(fileName);
+        String tempString = tempFile.getAbsolutePath().substring(0, tempFile.getAbsolutePath().length()-fileName.length());
+        File file = new File(tempString + "/src/main/java/javaClasses/menuFiles/" + fileName);
+
         if(file.canRead()) {
-            System.out.println("ss");
             BufferedReader br = null;
             try {
                 br = new BufferedReader(new FileReader(file));
@@ -24,24 +27,32 @@ public class MenuReader {
             try {
                 StringBuilder sb = new StringBuilder();
                 String line = br.readLine();
+                boolean first = true;
 
                 while (line != null) {
                     sb.append(line);
                     sb.append(System.lineSeparator());
-                    line = br.readLine();
-                }
-                String everything = sb.toString();
-                int lastSpace = 0;
-                for (int i = everything.length() - 1; i >= 0; i--){
-                    if (everything.charAt(i) == ' ') {
-                        lastSpace = i;
-                        break;
-                    }
-                }
+                    if (!first)
+                        line = br.readLine();
 
-                String price = everything.substring(lastSpace + 2, everything.length());
-                int productPrice = Integer.parseInt(price);
-                result.put(everything.substring(0, lastSpace), productPrice);
+                    first = false;
+
+                    if (line.equals(fileEnding))
+                        break;
+
+                    int lastSpace = 0;
+                    for (int i = line.length() - 1; i >= 0; i--){
+                        if (line.charAt(i) == ' ') {
+                            lastSpace = i;
+                            break;
+                        }
+                    }
+
+                    String price = line.substring(lastSpace + 2);
+                    Double productPrice = Double.parseDouble(price);
+                    Product product = new Product(line.substring(0, lastSpace - 1), productPrice);
+                    result.add(product);
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -53,7 +64,6 @@ public class MenuReader {
                 }
             }
         }
-
         return result;
     }
 }

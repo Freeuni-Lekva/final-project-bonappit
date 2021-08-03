@@ -6,3 +6,4 @@ pizza E  $35
 drink a  $1.5
 drink b  $2.5
 drink c  $3
+---
