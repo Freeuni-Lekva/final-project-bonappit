@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ProductsInMenu {
     public static final String Products = "products";
-    private Map<String, Integer> productsInMenu;
+    private Map<Product, Integer> productsInMenu;
     private double totalPrice;
 
 
@@ -15,41 +15,55 @@ public class ProductsInMenu {
     }
 
 
-    //adds new product in cart
-    public void addProduct(String productName, String productPrice){
-        if (productsInMenu.containsKey(productName)) {
-            int newQuantity = productsInMenu.get(productName) + 1;
-            productsInMenu.put(productName, newQuantity);
-        } else {
-            productsInMenu.put(productName, 1);
+    //adds new item in menu
+    public void addProduct(Product product){
+        boolean contains = false;
+        Product containedProduct = null;
+        for(Product currProduct : productsInMenu.keySet()){
+            if (currProduct.getProductName().equals(product.getProductName())) {
+                contains = true;
+                containedProduct = currProduct;
+                break;
+            }
         }
-        totalPrice += Double.parseDouble(productPrice);
+        if (contains) {
+            int newQuantity = productsInMenu.get(containedProduct) + 1;
+            productsInMenu.put(containedProduct, newQuantity);
+        } else {
+            productsInMenu.put(product, 1);
+        }
+        totalPrice += product.getProductPrice();
     }
 
-    //return map of products in cart
-    public Map<String, Integer> getProductsInCart(){
+    //returns products in menu
+    public Map<Product, Integer> getProductsInMenu(){
         return productsInMenu;
     }
 
+    //resets menu
+    public void clearMenu(){
+        productsInMenu.clear();
+        totalPrice = 0;
+    }
 
-    //return total price of cart products
+    //return total price of products in menu
     public double getTotalPrice(){
         return totalPrice;
     }
 
 
-    //method to update values when update cart button is used
-    public void setProductsInCart(String productName, int quantity, double productPrice){
-        int oldQuantity = productsInMenu.get(productName);
+    //updates values and quantities when update menu button is pressed
+    public void setProductsInCart(Product product, int quantity){
+        int oldQuantity = productsInMenu.get(product);
         if (oldQuantity == quantity) return;
 
         if (oldQuantity > quantity){
-            totalPrice = totalPrice - productPrice * (oldQuantity - quantity);
-            productsInMenu.put(productName, quantity);
+            totalPrice = totalPrice - product.getProductPrice() * (oldQuantity - quantity);
+            productsInMenu.put(product, quantity);
 
         } else {
-            totalPrice = totalPrice + productPrice * (quantity - oldQuantity);
-            productsInMenu.put(productName, quantity);
+            totalPrice = totalPrice + product.getProductPrice() * (quantity - oldQuantity);
+            productsInMenu.put(product, quantity);
         }
     }
 }

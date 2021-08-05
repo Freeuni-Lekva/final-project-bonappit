@@ -22,7 +22,7 @@
         ArrayList<Restaurant> restaurants = (ArrayList<Restaurant>) restaurantDao.getRestaurants();
 
         for(javaClasses.Restaurant restaurant : restaurants) {
-            out.print("<li><a href=\"restaurantPage?id=" + restaurant.getId() + "\">"
+            out.print("<li><a href=\"restaurantPage?restaurantId=" + restaurant.getId() + "\">"
                     + restaurant.getName() + "</a>" +
                     " Rating " + restaurant.getRating() + "</li><br></br>");
             out.println("\n");

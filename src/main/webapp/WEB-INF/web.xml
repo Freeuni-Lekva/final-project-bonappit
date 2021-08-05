@@ -29,6 +29,14 @@
     <servlet-name>chatPge</servlet-name>
     <jsp-file>/WEB-INF/welcomePage/chatPage.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>menuServlet</servlet-name>
+    <servlet-class>listeners.MenuServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>manageMenuServlet</servlet-name>
+    <servlet-class>listeners.ManageMenuServlet</servlet-class>
+  </servlet>
 
 
   <servlet-mapping>
@@ -54,6 +62,14 @@
   <servlet-mapping>
     <servlet-name>chatPge</servlet-name>
     <url-pattern>/chatPge</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>menuServlet</servlet-name>
+    <url-pattern>/menuServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>manageMenuServlet</servlet-name>
+    <url-pattern>/manageMenuServlet</url-pattern>
   </servlet-mapping>
 
 

@@ -1,12 +1,14 @@
 database\RestaurantsDao.class
 javaClasses\Product.class
-javaClasses\User.class
+listeners\ManageMenuServlet.class
 javaClasses\MenuReader.class
-javaClasses\ProductsInMenu.class
-listeners\ListenerClass.class
 database\DB_restaurants.class
 testClasses\TestMenuReader.class
 listeners\CreateUserServlet.class
 listeners\LoginServlet.class
+listeners\MenuServlet.class
 listeners\CreateRestaurantServlet.class
 javaClasses\Restaurant.class
+javaClasses\User.class
+javaClasses\ProductsInMenu.class
+listeners\ListenerClass.class

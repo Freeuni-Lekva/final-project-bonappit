@@ -1,17 +1,16 @@
 package listeners;
 
 import javaClasses.ProductsInMenu;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
 
 @WebListener
-public class ListenerClass implements ServletContextListener {
+public class ListenerClass implements ServletContextListener, HttpSessionListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
@@ -22,15 +21,16 @@ public class ListenerClass implements ServletContextListener {
 
     }
 
+    @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
         ProductsInMenu productsInMenu = new ProductsInMenu();
         HttpSession session = httpSessionEvent.getSession();
         session.setAttribute(productsInMenu.Products, productsInMenu);
     }
 
+    @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
         HttpSession session = httpSessionEvent.getSession();
-        ProductsInMenu productsInMenu = new ProductsInMenu();
-        session.removeAttribute(productsInMenu.Products);
+        session.removeAttribute("products");
     }
 }
