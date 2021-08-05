@@ -1,2 +1,0 @@
-127.0.0.1 - - [03/Aug/2021:15:54:38 +0400] "GET /restaurantPage?id=2 HTTP/1.1" 200 4969 http-bio-8080-exec-1 914
-127.0.0.1 - - [03/Aug/2021:15:54:44 +0400] "GET /restaurantPage?id=1 HTTP/1.1" 200 2856 http-bio-8080-exec-3 124
