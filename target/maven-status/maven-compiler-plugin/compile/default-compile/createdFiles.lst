@@ -5,6 +5,7 @@ javaClasses\MenuReader.class
 database\DB_restaurants.class
 testClasses\TestMenuReader.class
 listeners\CreateUserServlet.class
+javaClasses\MostVisitedRestaurant.class
 listeners\LoginServlet.class
 listeners\MenuServlet.class
 listeners\CreateRestaurantServlet.class

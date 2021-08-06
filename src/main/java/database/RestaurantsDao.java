@@ -123,6 +123,40 @@ public class RestaurantsDao {
         return restaurants;
     }
 
+
+    //this return most visited place for current log inned user
+    public List<String> mostVisitedRestaurants(String thisUserName){
+        List<String> restaurants = new ArrayList<>();
+        ResultSet result = getResultSet("visits");
+
+        while (restaurants.size() < 2) {
+            String currRestaurantId = "-1";
+            try {
+                while (result.next()) {
+                    int numVisits = 0;
+                    String currUserName = result.getString("username");
+                    String tempStr = result.getString("restaurantid");
+                    if (currUserName.equals(thisUserName) && !restaurants.contains(tempStr)) {
+                        if (numVisits <= result.getInt("numvisits")) {
+                            numVisits = result.getInt("numvisits");
+                            currRestaurantId = result.getString("restaurantid");
+                        }
+                    }
+                }
+                if (currRestaurantId.equals("-1"))
+                    break;
+                restaurants.add(currRestaurantId);
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+        return restaurants;
+    }
+
+
+
     //private void to take restaurant from database
     private Restaurant takeRestaurant(ResultSet result, ResultSet result1) {
         Restaurant restaurant = null;

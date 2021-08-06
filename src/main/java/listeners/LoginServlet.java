@@ -1,6 +1,7 @@
 package listeners;
 
 import database.RestaurantsDao;
+import javaClasses.MostVisitedRestaurant;
 import javaClasses.User;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class LoginServlet extends HttpServlet {
 
@@ -36,6 +38,9 @@ public class LoginServlet extends HttpServlet {
             if(currUser.isAdmin()) {
                 requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/adminHomePage.jsp");
             } else {
+                MostVisitedRestaurant mostVisitedRestaurant = new MostVisitedRestaurant(username, restaurantsDao);
+                List<String> mostVisited = mostVisitedRestaurant.getMostVisitedRestaurants();
+                req.setAttribute("mostVisited", mostVisited);
                 requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp");
             }
             requestDispatcher.forward(req, resp);
