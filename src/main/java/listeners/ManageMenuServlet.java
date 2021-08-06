@@ -17,8 +17,6 @@ public class ManageMenuServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("restaurantId") == null)
-            System.out.println("post eh");
         ProductsInMenu productsInMenu = (ProductsInMenu) req.getSession().getAttribute("products");
         productsInMenu.clearMenu();
 

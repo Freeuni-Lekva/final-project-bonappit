@@ -40,7 +40,6 @@ public class RestaurantsDao {
 
     //gets product from sql database by id
     public User getUserByUsername(String thisUserName){
-        String strForResultSet = "";
         User user = null;
         ResultSet result = getResultSet("users");
 
@@ -65,7 +64,6 @@ public class RestaurantsDao {
 
 
     public String getLastId(){
-        String strForResultSet = "";
         String resultId = "";
 
         ResultSet result = getResultSet("restaurants");
@@ -83,7 +81,6 @@ public class RestaurantsDao {
 
 
     public Restaurant getRestaurantById(String restaurantId){
-        String strForResultSet = "";
         Restaurant res = null;
         ResultSet result = getResultSet("restaurants");
         ResultSet result1 = getResultSet("visits");
@@ -102,15 +99,15 @@ public class RestaurantsDao {
     }
 
 
-
     //returns all user from database
     public List<Restaurant> getRestaurants(){
         List<Restaurant> restaurants = new ArrayList<>();
         ResultSet result = getResultSet("restaurants");
-        ResultSet result1 = getResultSet("visits");
+        ResultSet result1;
 
         try {
             while (result.next()) {
+                result1 = getResultSet("visits");
                 Restaurant restaurant = takeRestaurant(result, result1);
 
                 restaurants.add(restaurant);
@@ -129,22 +126,26 @@ public class RestaurantsDao {
         List<String> restaurants = new ArrayList<>();
         ResultSet result = getResultSet("visits");
 
-        while (restaurants.size() < 2) {
+        while (restaurants.size() < 4) {
+            if (restaurants.size() > 0)
+                result = getResultSet("visits");
+
             String currRestaurantId = "-1";
+            int numVisits = 0;
             try {
                 while (result.next()) {
-                    int numVisits = 0;
                     String currUserName = result.getString("username");
-                    String tempStr = result.getString("restaurantid");
-                    if (currUserName.equals(thisUserName) && !restaurants.contains(tempStr)) {
+                    String tempId = result.getString("restaurantid");
+                    if (currUserName.equals(thisUserName) && !restaurants.contains(tempId)) {
                         if (numVisits <= result.getInt("numvisits")) {
                             numVisits = result.getInt("numvisits");
-                            currRestaurantId = result.getString("restaurantid");
+                            currRestaurantId = tempId;
                         }
                     }
                 }
                 if (currRestaurantId.equals("-1"))
                     break;
+
                 restaurants.add(currRestaurantId);
 
             } catch (SQLException throwables) {
@@ -161,7 +162,7 @@ public class RestaurantsDao {
     private Restaurant takeRestaurant(ResultSet result, ResultSet result1) {
         Restaurant restaurant = null;
         double rating = 0;
-        double n = 0;
+        int n = 0;
 
         try {
             String id = result.getString("restaurantid");
@@ -172,19 +173,17 @@ public class RestaurantsDao {
             while (result1.next()) {
                 String curr1 = result1.getString("restaurantid");
                 if (curr1.equals(id)) {
-                    n++;
-                    rating += result1.getDouble("rating");
+                    n = result1.getInt("numvisits");
+                    rating = result1.getDouble("rating");
                 }
             }
             if(n == 0)
                 rating = -1;
-            else
-                rating = rating/n;
 
             restaurant = new Restaurant(name, id, menu, numTable, rating);
 
         } catch (SQLException throwables) {
-        throwables.printStackTrace();
+            throwables.printStackTrace();
         }
 
         return restaurant;

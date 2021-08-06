@@ -79,9 +79,7 @@
     for(String id : mostViwed) {
         Restaurant restaurant = restaurantDao.getRestaurantById(id);
         out.print("<li><a href=\"restaurantPage?restaurantId=" + restaurant.getId() + "\">"
-                + restaurant.getName() + "</a>" +
-                " Rating " + restaurant.getRating() + "</li><br></br>");
-        out.println("\n");
+                + restaurant.getName() + "</a></li>");
     }
 %>
 

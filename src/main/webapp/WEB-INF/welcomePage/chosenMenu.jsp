@@ -35,7 +35,7 @@
         </ul>
 
         <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
-        Total: $<%=productsInMenu.getTotalPrice()%> <button type="submit">Update Cart</button>
+        Total: $<%=productsInMenu.getTotalPrice()%> <button type="submit">Update Menu</button>
     </form>
 
     <form action="manageMenuServlet" method="post">
