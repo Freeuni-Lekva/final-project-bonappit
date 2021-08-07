@@ -12,67 +12,67 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Admin of:  <%= request.getParameter("username")%></title>
+    <title>
+        Display table with vertical scrollbar
+    </title>
+
     <style>
-    table.scrolldown {
-    width: 100%;
+        table.scrolldown {
+            width: 100%;
 
-    /* border-collapse: collapse; */
-    border-spacing: 0;
-    border: 2px solid black;
-    }
+            /* border-collapse: collapse; */
+            border-spacing: 0;
+            border: 2px solid black;
+        }
 
-    /* To display the block as level element */
-    table.scrolldown tbody, table.scrolldown thead {
-    display: block;
-    }
+        /* To display the block as level element */
+        table.scrolldown tbody, table.scrolldown thead {
+            display: block;
+        }
 
-    thead tr th {
-    height: 40px;
-    line-height: 40px;
-    }
+        thead tr th {
+            height: 40px;
+            line-height: 40px;
+        }
 
-    table.scrolldown tbody {
+        table.scrolldown tbody {
 
-    /* Set the height of table body */
-    height: 50px;
+            /* Set the height of table body */
+            height: 50px;
 
-    /* Set vertical scroll */
-    overflow-y: auto;
+            /* Set vertical scroll */
+            overflow-y: auto;
 
-    /* Hide the horizontal scroll */
-    overflow-x: hidden;
-    }
+            /* Hide the horizontal scroll */
+            overflow-x: hidden;
+        }
 
-    tbody {
-    border-top: 2px solid black;
-    }
+        tbody {
+            border-top: 2px solid black;
+        }
 
-    tbody td, thead th {
-    width : 200px;
-    border-right: 2px solid black;
-    }
-    td {
-    text-align:center;
-    }
+        tbody td, thead th {
+            width : 200px;
+            border-right: 2px solid black;
+        }
+        td {
+            text-align:center;
+        }
     </style>
 </head>
+
 <body>
-<u1>
+<table class="scrolldown">
 
-
-
-</u1>
-<div align="center">
-    <thead border="1" cellpadding="5">
-        <caption><h2>Requests</h2></caption>
-        <tr>
-            <th>Name</th>
-            <th>Menu</th>
-            <th>A/R</th>
-        </tr>
+    <!-- Table head content -->
+    <thead>
+    <tr>
+        <th>User</th>
+        <th>Menu</th>
+        <th>A/R</th>
+    </tr>
     </thead>
-<tbody>
+    <tbody>
     <%
         RestaurantsDao restaurantDao = new RestaurantsDao();
         Map<String,Reservation> reservations = restaurantDao.getReservationList(request.getParameter("restaurantid"));
@@ -84,13 +84,12 @@
                 status="rejected";
     %>
             <tr>
-                <td><%=reservations.get(rep).getUsername()%></td>
-                <td><a href="Menu">Show Menu </a></td>
-                <td><%=status%></td>
+                <td><%System.out.println(reservations.get(rep).getUsername());%></td>
+                <td> <a href="Menu">Show Menu </a> </td>
+                <td><%=System.out.println(status)%></td>
             </tr>
 <% } %>
 </tbody>
     </table>
-</div>
 </body>
 </html>
