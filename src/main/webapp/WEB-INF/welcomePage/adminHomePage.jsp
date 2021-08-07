@@ -1,7 +1,8 @@
 <%@ page import="database.RestaurantsDao" %>
 <%@ page import="javaClasses.Reservation" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Map" %><%--
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Set" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 31-Jul-21
@@ -16,10 +17,7 @@
 <body>
 <u1>
 
-        <%
-        RestaurantsDao restaurantDao = new RestaurantsDao();
-        Map<String,Reservation> reservations = restaurantDao.getReservationList(request.getParameter("restaurantid"));
-    %>
+
 
 </u1>
 <div align="center">
@@ -28,15 +26,27 @@
         <tr>
             <th>Name</th>
             <th>Menu</th>
-            <th>A/Rn</th>
+            <th>A/R</th>
         </tr>
     </thead>
-</tbody>
+<tbody>
+    <%
+        RestaurantsDao restaurantDao = new RestaurantsDao();
+        Map<String,Reservation> reservations = restaurantDao.getReservationList(request.getParameter("restaurantid"));
+        Set<String> set=reservations.keySet();
+        for (String rep:
+             set) {
+            String status="accepted";
+            if (reservations.get(rep).getStatus())
+                status="rejected";
+    %>
             <tr>
-                <td>< value="1" /></td>
-                <td>< value="2"/></td>
-                <td>< value ="3" /></td>
+                <td><%=reservations.get(rep).getUsername()%></td>
+                <td><a href="Menu">Show Menu </a></td>
+                <td><%=status%></td>
             </tr>
+<% } %>
+</tbody>
     </table>
 </div>
 </body>
