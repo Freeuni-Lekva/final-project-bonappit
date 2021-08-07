@@ -6,15 +6,15 @@ public class Reservation {
     String username;
     ArrayList<String> menu;
     double price;
-    boolean rejected;
-    public Reservation(String username,ArrayList<String> menu,double price,boolean rejected){
+    boolean status;
+    public Reservation(String username,ArrayList<String> menu,double price,boolean status){
         this.username=username;
         this.menu=menu;
         this.price=price;
-        this.rejected=false;
+        this.status=false;
     }
     public void reject(){
-        rejected=true;
+        status=true;
     }
     public String getUsername(){
         return username;
@@ -37,4 +37,6 @@ public class Reservation {
         this.menu=menu;
         this.price=price;
     }
+    //false=accepted  true=rejected
+    public boolean getStatus(){return status;}
 }
