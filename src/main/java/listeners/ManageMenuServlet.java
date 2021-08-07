@@ -12,7 +12,8 @@ public class ManageMenuServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" + req.getParameter("restaurantId")).forward(req,res);
+        req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" + req.getParameter("restaurantId")
+        + "&username=" + req.getParameter("username")).forward(req,res);
     }
 
     @Override
@@ -20,7 +21,8 @@ public class ManageMenuServlet extends HttpServlet {
         ProductsInMenu productsInMenu = (ProductsInMenu) req.getSession().getAttribute("products");
         productsInMenu.clearMenu();
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" + req.getParameter("restaurantId"));
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" +
+                req.getParameter("restaurantId") + "&username=" + req.getParameter("username"));
         requestDispatcher.forward(req, resp);
     }
 }

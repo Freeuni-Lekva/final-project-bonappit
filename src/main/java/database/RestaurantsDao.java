@@ -1,5 +1,7 @@
 package database;
 
+import javaClasses.Product;
+import javaClasses.ProductsInMenu;
 import javaClasses.Restaurant;
 import javaClasses.User;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -11,8 +13,11 @@ import java.util.List;
 public class RestaurantsDao {
     private Statement statement;
     private Connection connection;
-    private static final String insertSt = "insert into restaurants values (?, ?, ?,?);";
-    private static final String insertUser = "insert into users values (?, ?, ?,?);";
+    private static final String insertSt = "insert into restaurants values (?, ?, ?, ?);";
+    private static final String insertUser = "insert into users values (?, ?, ?, ?);";
+    private static final String insertReservation = "insert into reservations values (?, ?, ?, ?, ?, ?, ?);";
+    private static final String removeReservation = "delete from reservations where (username=?) and (restaurantid=?)";
+    private static final String removeReservation2 = "delete from reservations where username=?";
 
 
     public RestaurantsDao(){
@@ -190,6 +195,96 @@ public class RestaurantsDao {
     }
 
 
+    //if user already has reservation
+    public boolean hasreservation(String username, String restaurantId) {
+        ResultSet result = getResultSet("reservations");
+
+        try {
+            while (result.next()) {
+                String currRestaurant = result.getString("restaurantid");
+                String currUserName = result.getString("username");
+
+                if (currUserName.equals(username) && (restaurantId.equals("null") || currRestaurant.equals(restaurantId))) {
+                    return true;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+
+
+    //dao for reservations
+    public boolean reserved(String username, String restaurantId) {
+        ResultSet result = getResultSet("reservations");
+
+        try {
+            while (result.next()) {
+                String currRestaurant = result.getString("restaurantid");
+                String currUserName = result.getString("username");
+
+                if (currUserName.equals(username) && currRestaurant.equals(restaurantId)) {
+                    if (result.getBoolean("reserved") == true)
+                        return true;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+
+    //to check if reservations is rejected by admin
+    public boolean rejected(String username, String restaurantId) {
+        ResultSet result = getResultSet("reservations");
+
+        try {
+            while (result.next()) {
+                String currRestaurant = result.getString("restaurantid");
+                String currUserName = result.getString("username");
+
+                if (currUserName.equals(username) && currRestaurant.equals(restaurantId)) {
+                    if (result.getBoolean("rejected") == true)
+                        return true;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+    //if admin changed menu, we must check in sql database
+    public void getChangedMenu(String username, String restaurantId, ProductsInMenu productsInMenu) {
+        ResultSet result = getResultSet("reservations");
+        productsInMenu.clearMenu();
+
+        try {
+            while (result.next()) {
+                String currRestaurant = result.getString("restaurantid");
+                String currUserName = result.getString("username");
+
+                if (currUserName.equals(username) && currRestaurant.equals(restaurantId)) {
+                    String productName = result.getString("productname");
+                    Double productPrice = result.getDouble("productprice");
+                    int numProducts = result.getInt("numproducts");
+                    Product newProduct = new Product(productName, productPrice);
+                    productsInMenu.addProduct(newProduct, currRestaurant);
+                    productsInMenu.setProductsInCart(newProduct, numProducts);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
     public void addUser(User user) throws SQLException {
         try {
             PreparedStatement ps = connection.prepareStatement(insertUser);
@@ -212,6 +307,43 @@ public class RestaurantsDao {
             ps.setString(2, res.getName());
             ps.setString(3, res.getMenu());
             ps.setInt(4, res.getNumTable());
+
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    public void addReservations(String username, String restaurantId, ProductsInMenu productsInMenu) {
+        for (Product product : productsInMenu.getProductsInMenu().keySet()) {
+            try {
+                PreparedStatement ps = connection.prepareStatement(insertReservation);
+                ps.setString(1, username);
+                ps.setString(2, restaurantId);
+                ps.setBoolean(3, false);
+                ps.setString(4, product.getProductName());
+                ps.setDouble(5, product.getProductPrice());
+                ps.setInt(6, productsInMenu.getProductsInMenu().get(product));
+                ps.setBoolean(7, false);
+
+                ps.executeUpdate();
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
+            }
+        }
+    }
+
+    public void removeReservation(String username, String restaurantId) {
+        try {
+            PreparedStatement ps;
+            if (!restaurantId.equals("null")) {
+                ps = connection.prepareStatement(removeReservation);
+                ps.setString(1, username);
+                ps.setString(2, restaurantId);
+            } else {
+                ps = connection.prepareStatement(removeReservation2);
+                ps.setString(1, username);
+            }
 
             ps.executeUpdate();
         } catch (SQLException throwable) {

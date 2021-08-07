@@ -7,6 +7,7 @@ public class ProductsInMenu {
     public static final String Products = "products";
     private Map<Product, Integer> productsInMenu;
     private double totalPrice;
+    private String restaurantId;
 
 
     public ProductsInMenu(){
@@ -16,7 +17,9 @@ public class ProductsInMenu {
 
 
     //adds new item in menu
-    public void addProduct(Product product){
+    public void addProduct(Product product, String restaurantId){
+        this.restaurantId = restaurantId;
+
         boolean contains = false;
         Product containedProduct = null;
         for(Product currProduct : productsInMenu.keySet()){
@@ -43,6 +46,7 @@ public class ProductsInMenu {
     //resets menu
     public void clearMenu(){
         productsInMenu.clear();
+        restaurantId = null;
         totalPrice = 0;
     }
 
@@ -65,5 +69,18 @@ public class ProductsInMenu {
             totalPrice = totalPrice + product.getProductPrice() * (quantity - oldQuantity);
             productsInMenu.put(product, quantity);
         }
+    }
+
+    //remove unnecessary products
+    public void removeZeroQuantities(){
+        for(Product currProduct : productsInMenu.keySet()){
+            if (productsInMenu.get(currProduct) == 0) {
+                productsInMenu.remove(currProduct);
+            }
+        }
+    }
+
+    public String getRestaurantId(){
+        return restaurantId;
     }
 }

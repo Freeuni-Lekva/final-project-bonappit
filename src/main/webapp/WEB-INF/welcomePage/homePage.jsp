@@ -1,7 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="database.RestaurantsDao" %>
 <%@ page import="javaClasses.Restaurant" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="javaClasses.MostVisitedRestaurant" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 28-Jul-21
@@ -57,7 +58,8 @@
       <%
           quickSort(restaurants, 0, restaurants.size() - 1);
           for(javaClasses.Restaurant restaurant : restaurants) {
-            out.print("<li><a href=\"restaurantPage?restaurantId=" + restaurant.getId() + "\">"
+            out.print("<li><a href=\"restaurantPage?restaurantId=" + restaurant.getId() +
+                    "&username=" + request.getParameter("username") + "\">"
                     + restaurant.getName() + "</a>" +
                     " Rating " + restaurant.getRating() + "</li><br></br>");
             out.println("\n");
@@ -69,16 +71,25 @@
 <br></br>
 <a href="chatPge">Open Chat </a>
 
+<br></br>
+<%
+    out.print("<a href=\"reservationServlet?restaurantId=" + request.getParameter("restaurantId") +
+            "&username=" + request.getParameter("username") + "\">cancel reservation </a>");
+%>
+
 
 <br></br>
 <h2>Most visited Restaurants</h2>
 
 <%
-    List<String> mostViwed = (List<String>) request.getAttribute("mostVisited");
+
+    MostVisitedRestaurant mostVisitedRestaurant = new MostVisitedRestaurant(request.getParameter("username"), restaurantDao);
+    List<String> mostViwed = mostVisitedRestaurant.getMostVisitedRestaurants();
 
     for(String id : mostViwed) {
         Restaurant restaurant = restaurantDao.getRestaurantById(id);
-        out.print("<li><a href=\"restaurantPage?restaurantId=" + restaurant.getId() + "\">"
+        out.print("<li><a href=\"restaurantPage?restaurantId=" + restaurant.getId() +
+                "&username=" + request.getParameter("username") + "\">"
                 + restaurant.getName() + "</a></li>");
     }
 %>

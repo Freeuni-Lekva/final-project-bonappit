@@ -37,6 +37,14 @@
     <servlet-name>manageMenuServlet</servlet-name>
     <servlet-class>listeners.ManageMenuServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>reservationServlet</servlet-name>
+    <servlet-class>listeners.ReservationServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>homePage</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/homePage.jsp</jsp-file>
+  </servlet>
 
 
   <servlet-mapping>
@@ -70,6 +78,14 @@
   <servlet-mapping>
     <servlet-name>manageMenuServlet</servlet-name>
     <url-pattern>/manageMenuServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>reservationServlet</servlet-name>
+    <url-pattern>/reservationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>homePage</servlet-name>
+    <url-pattern>/homePage</url-pattern>
   </servlet-mapping>
 
 

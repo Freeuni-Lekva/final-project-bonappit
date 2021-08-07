@@ -45,17 +45,8 @@
                out.print("<a href=\"menuServlet?productName=" + menuList.get(i).getProductName() +
                        "&productPrice=" + menuList.get(i).getProductPrice() +
                        "&restaurantId=" + request.getParameter("restaurantId") +
-                       "\">Add to Menu</a>");
-       %>
-
-<%--        <form action="menuServlet" method="post">--%>
-<%--            <input type="hidden" name="productName" value="<%=menuList.get(i).getProductName()%>"/>--%>
-<%--            <input type="hidden" name="productPrice" value="<%=menuList.get(i).getProductPrice()%>">--%>
-<%--            <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">--%>
-<%--            <button type="submit"> Add to Menu </button>--%>
-
-        <%
-                out.print("</td></tr>");
+                       "&username=" + request.getParameter("username") +
+                       "\">Add to Menu</a></td></tr>");
             }
         %>
     </table>
@@ -63,8 +54,15 @@
     <br></br>
     <%
         out.print("<a href=\"manageMenuServlet?restaurantId=" + request.getParameter("restaurantId") +
-                "\">Show Products in Menu</a>");
+                "&username=" + request.getParameter("username") + "\">Show Products in Menu</a>");
     %>
+
+    <br></br>
+    <%
+        out.print("<a href=\"homePage?restaurantId=" + request.getParameter("restaurantId") +
+                "&username=" + request.getParameter("username") + "\">return to home page</a>");
+    %>
+
 
 </body>
 </html>

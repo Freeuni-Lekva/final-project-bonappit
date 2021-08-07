@@ -38,10 +38,7 @@ public class LoginServlet extends HttpServlet {
             if(currUser.isAdmin()) {
                 requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/adminHomePage.jsp");
             } else {
-                MostVisitedRestaurant mostVisitedRestaurant = new MostVisitedRestaurant(username, restaurantsDao);
-                List<String> mostVisited = mostVisitedRestaurant.getMostVisitedRestaurants();
-                req.setAttribute("mostVisited", mostVisited);
-                requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp");
+                requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp?username=" + username);
             }
             requestDispatcher.forward(req, resp);
         } else {
