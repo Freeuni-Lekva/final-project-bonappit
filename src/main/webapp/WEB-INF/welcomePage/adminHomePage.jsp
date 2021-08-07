@@ -9,87 +9,33 @@
   Time: 1:59 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>
-        Display table with vertical scrollbar
-    </title>
-
-    <style>
-        table.scrolldown {
-            width: 100%;
-
-            /* border-collapse: collapse; */
-            border-spacing: 0;
-            border: 2px solid black;
-        }
-
-        /* To display the block as level element */
-        table.scrolldown tbody, table.scrolldown thead {
-            display: block;
-        }
-
-        thead tr th {
-            height: 40px;
-            line-height: 40px;
-        }
-
-        table.scrolldown tbody {
-
-            /* Set the height of table body */
-            height: 50px;
-
-            /* Set vertical scroll */
-            overflow-y: auto;
-
-            /* Hide the horizontal scroll */
-            overflow-x: hidden;
-        }
-
-        tbody {
-            border-top: 2px solid black;
-        }
-
-        tbody td, thead th {
-            width : 200px;
-            border-right: 2px solid black;
-        }
-        td {
-            text-align:center;
-        }
-    </style>
+    <title>Admin of : <%= request.getParameter("username")%></title>
 </head>
-
 <body>
-<table class="scrolldown">
-
-    <!-- Table head content -->
-    <thead>
-    <tr>
-        <th>User</th>
-        <th>Menu</th>
-        <th>A/R</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%
-        RestaurantsDao restaurantDao = new RestaurantsDao();
-        Map<String,Reservation> reservations = restaurantDao.getReservationList(request.getParameter("restaurantid"));
-        Set<String> set=reservations.keySet();
-        for (String rep:
-             set) {
-            String status="accepted";
-            if (reservations.get(rep).getStatus())
-                status="rejected";
-    %>
+<center>
+    <h1>Welcome</h1>
+</center>
+<div align="center">
+    <table border="1" cellpadding="3">
+        <caption><h2><%= request.getParameter("username")%></h2></caption>
+        <tr>
+            <th>Name</th>
+            <th>Menu</th>
+            <th>R/A</th>
+        </tr>
+        <c:forEach var="reservations" items="${listReservations}">
             <tr>
-                <td><%System.out.println(reservations.get(rep).getUsername());%></td>
-                <td> <a href="Menu">Show Menu </a> </td>
-                <td><%=System.out.println(status)%></td>
+                <td><c:out value="${reservations.username}" /></td>
+                <td> <a href="menu?id=<c:out value='${reservations.username}' />">Menu</a></td>
+                <td><c:out value="${reservations.rejected}" /></td>
             </tr>
-<% } %>
-</tbody>
+        </c:forEach>
     </table>
+</div>
 </body>
 </html>
