@@ -1,14 +1,14 @@
 package database;
 
-import javaClasses.Product;
-import javaClasses.ProductsInMenu;
-import javaClasses.Restaurant;
-import javaClasses.User;
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
+import javaClasses.*;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RestaurantsDao {
     private Statement statement;
@@ -20,7 +20,7 @@ public class RestaurantsDao {
     private static final String removeReservation2 = "delete from reservations where username=?";
 
 
-    public RestaurantsDao(){
+    public RestaurantsDao() {
 
     }
 
@@ -44,7 +44,7 @@ public class RestaurantsDao {
 
 
     //gets product from sql database by id
-    public User getUserByUsername(String thisUserName){
+    public User getUserByUsername(String thisUserName) {
         User user = null;
         ResultSet result = getResultSet("users");
 
@@ -68,7 +68,7 @@ public class RestaurantsDao {
     }
 
 
-    public String getLastId(){
+    public String getLastId() {
         String resultId = "";
 
         ResultSet result = getResultSet("restaurants");
@@ -85,14 +85,14 @@ public class RestaurantsDao {
     }
 
 
-    public Restaurant getRestaurantById(String restaurantId){
+    public Restaurant getRestaurantById(String restaurantId) {
         Restaurant res = null;
         ResultSet result = getResultSet("restaurants");
         ResultSet result1 = getResultSet("visits");
 
         try {
             while (result.next()) {
-                String curr= result.getString("restaurantid");
+                String curr = result.getString("restaurantid");
                 if (curr.equals(restaurantId)) {
                     res = takeRestaurant(result, result1);
                 }
@@ -105,7 +105,7 @@ public class RestaurantsDao {
 
 
     //returns all user from database
-    public List<Restaurant> getRestaurants(){
+    public List<Restaurant> getRestaurants() {
         List<Restaurant> restaurants = new ArrayList<>();
         ResultSet result = getResultSet("restaurants");
         ResultSet result1;
@@ -127,7 +127,7 @@ public class RestaurantsDao {
 
 
     //this return most visited place for current log inned user
-    public List<String> mostVisitedRestaurants(String thisUserName){
+    public List<String> mostVisitedRestaurants(String thisUserName) {
         List<String> restaurants = new ArrayList<>();
         ResultSet result = getResultSet("visits");
 
@@ -162,7 +162,6 @@ public class RestaurantsDao {
     }
 
 
-
     //private void to take restaurant from database
     private Restaurant takeRestaurant(ResultSet result, ResultSet result1) {
         Restaurant restaurant = null;
@@ -182,7 +181,7 @@ public class RestaurantsDao {
                     rating = result1.getDouble("rating");
                 }
             }
-            if(n == 0)
+            if (n == 0)
                 rating = -1;
 
             restaurant = new Restaurant(name, id, menu, numTable, rating);
@@ -214,7 +213,6 @@ public class RestaurantsDao {
 
         return false;
     }
-
 
 
     //dao for reservations
@@ -349,5 +347,32 @@ public class RestaurantsDao {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+    }
+
+    public Map<String, Reservation> getReservationList(String restaurantid) {
+        Map<String, Reservation> reservations = new HashMap<>();
+        ResultSet result = getResultSet("reservations");
+
+        try {
+            while (result.next()) {
+                if (restaurantid.equals(result.getString("restaurantid"))) {
+                    if (reservations.containsKey(result.getString("username"))) {
+                        reservations.get(result.getString("username")).addToMenu
+                                (result.getString("productname"),
+                                        Double.parseDouble(result.getString("productprice")));
+                    } else {
+                        String username = result.getString("username");
+                        double price = Double.parseDouble(result.getString("productprice"));
+                        ArrayList<String> menu = new ArrayList<>();
+                        menu.add(result.getString("productname"));
+                        Reservation res = new Reservation(username, menu, price, false);
+                        reservations.put(username, res);
+                    }
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return reservations;
     }
 }
