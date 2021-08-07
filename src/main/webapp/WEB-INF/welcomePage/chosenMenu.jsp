@@ -25,26 +25,38 @@
             <%
                 ProductsInMenu productsInMenu = new ProductsInMenu();
                 productsInMenu = (ProductsInMenu) session.getAttribute(productsInMenu.Products);
+                productsInMenu.removeZeroQuantities();
 
                 for(Product currProduct : productsInMenu.getProductsInMenu().keySet()){
                     out.println("<li> <input type ='number' value='" + productsInMenu.getProductsInMenu().get(currProduct)
-                            + "' name='" + currProduct.getProductName() + "'>"
+                            + "' name='" + currProduct.getProductName() + "'>" +
+                            "<input type ='hidden' value='" + request.getParameter("username")
+                            + "' name='" + "username" + "'>"
                             + currProduct.getProductName() + ", " + currProduct.getProductPrice() + "</li>");
                 }
             %>
         </ul>
 
         <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
         Total: $<%=productsInMenu.getTotalPrice()%> <button type="submit">Update Menu</button>
     </form>
 
     <form action="manageMenuServlet" method="post">
         <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
         <button type="submit">Clear Menu</button>
+    </form>
+
+    <form action="reservationServlet" method="post">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+        <button type="submit">Make Reservation</button>
     </form>
 
 <%
     out.print("<a href=\"restaurantPage?restaurantId=" + request.getParameter("restaurantId") +
+                    "&username=" + request.getParameter("username") +
             "\">add more products</a>");
 %>
 

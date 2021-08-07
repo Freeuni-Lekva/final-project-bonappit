@@ -44,7 +44,28 @@ CREATE TABLE visits (
 INSERT INTO visits VALUES
 	("beqa", "1", 1, 9.5),
     ("beqa", "2", 1, 8);
+   
+   
+   
+DROP TABLE IF EXISTS reservations;
+ -- remove table if it already exists and start from scratch
+
+CREATE TABLE reservations (
+	username char(64),
+    restaurantid char(64),
+    reserved boolean,
+    productname char(64),
+    productprice double(6,2),
+    numproducts int(3),
+    rejected boolean
+);
+
+INSERT INTO reservations VALUES
+	("beqa", "0", true, "try", 3.99, 2, false);
+    
 
 select * from restaurants;
 select * from users;
 select * from visits;
+select * from reservations;
+

@@ -17,10 +17,16 @@ public class MenuServlet extends HttpServlet {
 
         String productName = req.getParameter("productName");
         String productPrice = req.getParameter("productPrice");
+        String restaurantId = req.getParameter("restaurantId");
 
-        productsInMenu.addProduct(new Product(productName, Double.parseDouble(productPrice)));
+        if (productsInMenu.getRestaurantId() != null)
+            if (!productsInMenu.getRestaurantId().equals(restaurantId))
+                productsInMenu.clearMenu();
 
-        req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" + req.getParameter("restaurantId")).forward(req,res);
+        productsInMenu.addProduct(new Product(productName, Double.parseDouble(productPrice)), restaurantId);
+
+        req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" + restaurantId
+        + "&username=" + req.getParameter("username")).forward(req,res);
     }
 
     @Override
@@ -35,7 +41,8 @@ public class MenuServlet extends HttpServlet {
             productsInMenu.setProductsInCart(currProduct, newQuantity);
         }
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" + req.getParameter("restaurantId"));
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" +
+                req.getParameter("restaurantId") + "&username=" + req.getParameter("username"));
         requestDispatcher.forward(req, resp);
     }
 }
