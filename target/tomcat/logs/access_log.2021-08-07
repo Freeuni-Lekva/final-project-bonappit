@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:45:25 +0400] "GET / HTTP/1.1" 200 1290 http-bio-8080-exec-1 113
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:45:29 +0400] "GET /createAccount HTTP/1.1" 200 1393 http-bio-8080-exec-3 68
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:45:30 +0400] "GET /adminRegistration HTTP/1.1" 200 1915 http-bio-8080-exec-4 9
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:45:32 +0400] "GET /loginServlet HTTP/1.1" 200 1290 http-bio-8080-exec-5 16
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:45:34 +0400] "GET /createAccount HTTP/1.1" 200 1393 http-bio-8080-exec-6 6
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:45:39 +0400] "POST /createAccount HTTP/1.1" 200 1390 http-bio-8080-exec-7 785
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:45:44 +0400] "GET /adminRegistration HTTP/1.1" 200 1915 http-bio-8080-exec-8 7
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:45:58 +0400] "POST /createAdmin HTTP/1.1" 200 1940 http-bio-8080-exec-9 172
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:46:02 +0400] "GET /loginServlet HTTP/1.1" 200 1290 http-bio-8080-exec-10 5
