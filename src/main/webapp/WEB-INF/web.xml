@@ -49,6 +49,18 @@
     <servlet-name>currentReservations</servlet-name>
     <jsp-file>/WEB-INF/welcomePage/currentReservations.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>inviteFriendsServlet</servlet-name>
+    <servlet-class>listeners.InviteFriendsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>friendsPage</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/friendsPage.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>addFriendServlet</servlet-name>
+    <servlet-class>listeners.AddFriendServlet</servlet-class>
+  </servlet>
 
 
   <servlet-mapping>
@@ -94,6 +106,18 @@
   <servlet-mapping>
     <servlet-name>currentReservations</servlet-name>
     <url-pattern>/currentReservations</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>inviteFriendsServlet</servlet-name>
+    <url-pattern>/inviteFriendsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>friendsPage</servlet-name>
+    <url-pattern>/friendsPage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addFriendServlet</servlet-name>
+    <url-pattern>/addFriendServlet</url-pattern>
   </servlet-mapping>
 
 

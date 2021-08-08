@@ -1,4 +1,5 @@
-0:0:0:0:0:0:0:1 - - [08/Aug/2021:14:35:28 +0400] "GET / HTTP/1.1" 200 1290 http-bio-8080-exec-1 91
-0:0:0:0:0:0:0:1 - - [08/Aug/2021:14:35:37 +0400] "POST /loginServlet HTTP/1.1" 200 1477 http-bio-8080-exec-3 816
-0:0:0:0:0:0:0:1 - - [08/Aug/2021:14:36:09 +0400] "POST /loginServlet HTTP/1.1" 200 869 http-bio-8080-exec-4 664
-0:0:0:0:0:0:0:1 - - [08/Aug/2021:14:36:16 +0400] "POST /loginServlet HTTP/1.1" 200 1477 http-bio-8080-exec-5 88
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:17:07:54 +0400] "GET / HTTP/1.1" 200 1290 http-bio-8080-exec-2 108
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:17:07:59 +0400] "POST /loginServlet HTTP/1.1" 200 952 http-bio-8080-exec-3 1390
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:17:08:01 +0400] "GET /addFriendServlet?restaurantId=null&username=beqa HTTP/1.1" 200 361 http-bio-8080-exec-4 42
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:17:08:07 +0400] "POST /addFriendServlet HTTP/1.1" 200 - http-bio-8080-exec-5 2
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:17:08:12 +0400] "GET /currentReservations?restaurantId=null&username=beqa HTTP/1.1" 200 250 http-bio-8080-exec-6 114

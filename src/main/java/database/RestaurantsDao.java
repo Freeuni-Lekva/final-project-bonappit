@@ -18,10 +18,19 @@ public class RestaurantsDao {
     private static final String insertReservation = "insert into reservations values (?, ?, ?, ?, ?, ?, ?);";
     private static final String removeReservation = "delete from reservations where (username=?) and (restaurantid=?)";
     private static final String removeReservation2 = "delete from reservations where username=?";
+    private static final String insertMenuFriends = "insert into menufriends values (?, ?, ?, ?, ?, ?);";
 
 
     public RestaurantsDao() {
-
+        DB_restaurants db_products = new DB_restaurants();
+        BasicDataSource dataSource = db_products.getDataSoruce();
+        connection = null;
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     //connector code
@@ -406,5 +415,44 @@ public class RestaurantsDao {
             throwables.printStackTrace();
         }
         return reservations;
+    }
+
+
+    public List<String> getFriends(String username){
+        List<String> friends = new ArrayList<>();
+        ResultSet result = getResultSet("friends");
+
+        try {
+            while (result.next()) {
+                String currUsername = result.getString("username");
+                if (currUsername.equals(username) && result.getBoolean("isfriend")) {
+                    String friend = result.getString("friendname");
+                    friends.add(friend);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return friends;
+
+    }
+
+    public void inviteFriendOnReservation(String username, String restaurantId, String friendName, ProductsInMenu productsInMenu){
+        try {
+            PreparedStatement ps = connection.prepareStatement(insertMenuFriends);
+
+            for (Product product : productsInMenu.getProductsInMenu().keySet()) {
+                ps.setString(1, username);
+                ps.setString(2, friendName);
+                ps.setString(3, restaurantId);
+                ps.setString(4, product.getProductName());
+                ps.setDouble(5, product.getProductPrice());
+                ps.setInt(6, productsInMenu.getProductsInMenu().get(product));
+
+                ps.executeUpdate();
+            }
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
+            }
     }
 }

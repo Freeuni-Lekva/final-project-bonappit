@@ -75,7 +75,9 @@
 
 <%
     out.print("<a href=\"currentReservations?restaurantId=" + request.getParameter("restaurantId") +
-            "&username=" + request.getParameter("username") + "\">My Reservations </a>");
+            "&username=" + request.getParameter("username") + "\">My Reservations </a><br>");
+    out.print("<a href=\"addFriendServlet?restaurantId=" + request.getParameter("restaurantId") +
+            "&username=" + request.getParameter("username") + "\">Add Friends </a><br>");
 %>
 
 

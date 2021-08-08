@@ -8,10 +8,12 @@ listeners\CreateUserServlet.class
 javaClasses\MostVisitedRestaurant.class
 listeners\LoginServlet.class
 listeners\MenuServlet.class
+listeners\InviteFriendsServlet.class
 listeners\CreateRestaurantServlet.class
 javaClasses\Restaurant.class
 javaClasses\User.class
 javaClasses\ProductsInMenu.class
+listeners\AddFriendServlet.class
 listeners\ListenerClass.class
 listeners\ReservationServlet.class
 javaClasses\Reservation.class

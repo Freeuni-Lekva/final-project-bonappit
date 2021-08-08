@@ -63,9 +63,43 @@ CREATE TABLE reservations (
 INSERT INTO reservations VALUES
 	("beqa", "0", true, "try", 3.99, 2, false);
     
+    
+
+DROP TABLE IF EXISTS friends;
+ -- remove table if it already exists and start from scratch
+
+CREATE TABLE friends (
+	username char(64),
+    friendname char(64),
+    isfriend boolean
+);
+
+INSERT INTO friends VALUES
+	("beqa", "xxx", true),
+    ("xxx", "beqa", true);    
+    
+
+
+DROP TABLE IF EXISTS menufriends;
+ -- remove table if it already exists and start from scratch
+
+CREATE TABLE menufriends (
+	username char(64),
+    friendname char(64),
+    restaurantid char(64),
+    productname char(64),
+    productprice double(6,2),
+    numproducts int(3)
+);
+
+INSERT INTO menufriends VALUES
+	("beqa", "xxx", "0", "try", 3.99, 2);
+    
 
 select * from restaurants;
 select * from users;
 select * from visits;
 select * from reservations;
+select * from friends;
+select * from menufriends;
 

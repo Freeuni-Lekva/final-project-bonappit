@@ -41,7 +41,6 @@
                out.print("<tr><td>" + menuList.get(i).getProductName() + "</td>");
                out.print("<td>" +"$" + menuList.get(i).getProductPrice() + "</td>");
                out.print("<td>");
-               out.print("<form action=\"menuServlet\" method=\"post\">");
                out.print("<a href=\"menuServlet?productName=" + menuList.get(i).getProductName() +
                        "&productPrice=" + menuList.get(i).getProductPrice() +
                        "&restaurantId=" + request.getParameter("restaurantId") +
