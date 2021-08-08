@@ -2,7 +2,8 @@
 <%@ page import="database.RestaurantsDao" %>
 <%@ page import="javaClasses.Restaurant" %>
 <%@ page import="java.util.List" %>
-<%@ page import="javaClasses.MostVisitedRestaurant" %><%--
+<%@ page import="javaClasses.MostVisitedRestaurant" %>
+<%@ page import="javaClasses.ProductsInMenu" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 28-Jul-21
@@ -25,6 +26,8 @@
     <%
         RestaurantsDao restaurantDao = new RestaurantsDao();
         ArrayList<Restaurant> restaurants = (ArrayList<Restaurant>) restaurantDao.getRestaurants();
+        ProductsInMenu productsInMenu = (ProductsInMenu) request.getSession().getAttribute("products");
+        productsInMenu.clearMenu();
     %>
 
     <%!
@@ -66,19 +69,17 @@
         }
     %>
 
-</u1>
+</u1><br>
 
-<br></br>
-<a href="chatPge">Open Chat </a>
+<a href="chatPge">Open Chat </a><br>
 
-<br></br>
 <%
-    out.print("<a href=\"reservationServlet?restaurantId=" + request.getParameter("restaurantId") +
-            "&username=" + request.getParameter("username") + "\">cancel reservation </a>");
+    out.print("<a href=\"currentReservations?restaurantId=" + request.getParameter("restaurantId") +
+            "&username=" + request.getParameter("username") + "\">My Reservations </a>");
 %>
 
 
-<br></br>
+<br>
 <h2>Most visited Restaurants</h2>
 
 <%

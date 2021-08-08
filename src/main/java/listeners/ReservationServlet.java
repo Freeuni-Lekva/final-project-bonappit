@@ -40,13 +40,14 @@ public class ReservationServlet extends HttpServlet {
 
         //check if user already has reservation
         if (restaurantsDao.hasreservation(username, restaurantId)){
-            reserved = "1";
+            req.getRequestDispatcher("WEB-INF/welcomePage/checkReservation.jsp?restaurantId=" +
+                    restaurantId + "&username=" + username).forward(req, resp);
         } else {
-            restaurantsDao.addReservations(username, restaurantId, productsInMenu);
+            req.setAttribute("reserved", reserved);
+            req.getRequestDispatcher("WEB-INF/welcomePage/reservationPage.jsp?restaurantId=" +
+                    restaurantId + "&username=" + username).forward(req, resp);
+            if (!productsInMenu.getProductsInMenu().isEmpty())
+                restaurantsDao.addReservations(username, restaurantId, productsInMenu);
         }
-
-        req.setAttribute("reserved", reserved);
-        req.getRequestDispatcher("WEB-INF/welcomePage/reservationPage.jsp?restaurantId=" +
-                restaurantId + "&username=" + username).forward(req, resp);
     }
 }

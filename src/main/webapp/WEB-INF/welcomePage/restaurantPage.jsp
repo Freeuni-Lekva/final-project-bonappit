@@ -51,13 +51,13 @@
         %>
     </table>
 
-    <br></br>
+    <br>
     <%
         out.print("<a href=\"manageMenuServlet?restaurantId=" + request.getParameter("restaurantId") +
                 "&username=" + request.getParameter("username") + "\">Show Products in Menu</a>");
     %>
 
-    <br></br>
+    <br>
     <%
         out.print("<a href=\"homePage?restaurantId=" + request.getParameter("restaurantId") +
                 "&username=" + request.getParameter("username") + "\">return to home page</a>");

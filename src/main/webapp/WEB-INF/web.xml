@@ -45,6 +45,10 @@
     <servlet-name>homePage</servlet-name>
     <jsp-file>/WEB-INF/welcomePage/homePage.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>currentReservations</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/currentReservations.jsp</jsp-file>
+  </servlet>
 
 
   <servlet-mapping>
@@ -86,6 +90,10 @@
   <servlet-mapping>
     <servlet-name>homePage</servlet-name>
     <url-pattern>/homePage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>currentReservations</servlet-name>
+    <url-pattern>/currentReservations</url-pattern>
   </servlet-mapping>
 
 
