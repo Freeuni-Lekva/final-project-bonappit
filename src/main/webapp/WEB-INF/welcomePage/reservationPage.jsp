@@ -16,41 +16,22 @@
   <%
     String username = request.getParameter("username");
     String restaurantId = request.getParameter("restaurantId");
+    ProductsInMenu productsInMenu = (ProductsInMenu) request.getSession().getAttribute("products");
 
-    if (request.getAttribute("reserved").equals("0")){
+    if (productsInMenu.getProductsInMenu().isEmpty()){
+        out.println(", menu is empty</h1>");
+    }else if (request.getAttribute("reserved").equals("0")){
         out.println(", your reservation is waiting for administrators' approval</h1>");
-
-      RestaurantsDao restaurantsDao = new RestaurantsDao();
-      int count = 0;
-      while (count < 10){
-          count++;
-          if (restaurantsDao.reserved(username, restaurantId)){
-            out.println("<p>Reservation is approved </p>");
-            ProductsInMenu productsInMenu = new ProductsInMenu();
-            productsInMenu = (ProductsInMenu) session.getAttribute(productsInMenu.Products);
-            restaurantsDao.getChangedMenu(username, restaurantId, productsInMenu);
-            //ukve aproved unda wavshalo bazidan am usernamet da restaurantIdit, reservaton bazashi
-
-            break;
-        }
-        if (restaurantsDao.rejected(username, restaurantId)){
-            out.println("<p>Reservation is rejected by administrator </p>");
-            //ukve rejected unda wavshalo bazidan am usernamet da restaurantIdit, reservaton bazashi
-            break;
-        }
-        Thread.sleep(100);
-
-      }
     }
-    else
-      out.println(", you already have reservation, pls remove previous reservation first</h1>");
   %>
 
 
-  <br></br>
+  <br>
     <%
-        out.print("<a href=\"restaurantPage?restaurantId=" + request.getParameter("restaurantId") +
-                "&username=" + request.getParameter("username") + "\">return to products page</a>");
+        out.print("<a href=\"restaurantPage?restaurantId=" + restaurantId +
+                "&username=" + username + "\">return to products page</a><br><br>");
+        out.print("<a href=\"currentReservations?restaurantId=" + restaurantId +
+            "&username=" + username + "\">My Reservations </a>");
     %>
 
 </body>

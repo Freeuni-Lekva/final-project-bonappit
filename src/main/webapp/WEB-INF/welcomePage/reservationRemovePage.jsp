@@ -1,4 +1,5 @@
-<%--
+<%@ page import="database.RestaurantsDao" %>
+<%@ page import="javaClasses.Restaurant" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 07-Aug-21
@@ -15,12 +16,15 @@
         <%
     if (request.getAttribute("reserved").equals("0"))
         out.println(", you dont have reservation</h1>");
-    else
-      out.println("reservation is successfully cancelled</h1>");
+    else{
+        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        Restaurant restaurant = restaurantsDao.getRestaurantById(request.getParameter("restaurantId"));
+        out.println("reservation is successfully cancelled in " + restaurant.getName() + "</h1>");
+      }
   %>
 
 
-    <br></br>
+    <br>
         <%
         out.print("<a href=\"homePage?restaurantId=" + request.getParameter("restaurantId") +
                 "&username=" + request.getParameter("username") + "\">return to home page</a>");

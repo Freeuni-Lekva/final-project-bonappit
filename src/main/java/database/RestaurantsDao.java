@@ -375,4 +375,36 @@ public class RestaurantsDao {
         }
         return reservations;
     }
+
+
+    public Map<String, ProductsInMenu> getUserReservations(String username) {
+        Map<String, ProductsInMenu> reservations = new HashMap<>();
+        ResultSet result = getResultSet("reservations");
+        ProductsInMenu productsInMenu;
+
+        try {
+            while (result.next()) {
+                if (username.equals(result.getString("username"))) {
+                    String restaurantId = result.getString("restaurantid");
+                    if (!reservations.containsKey(restaurantId)){
+                        productsInMenu = new ProductsInMenu();
+                        reservations.put(restaurantId, productsInMenu);
+                    }
+                    productsInMenu = reservations.get(restaurantId);
+                    String productName = result.getString("productname");
+                    double productPrice = result.getDouble("productprice");
+                    int numProducts = result.getInt("numproducts");
+                    Product product = new Product(productName, productPrice);
+
+                    productsInMenu.addProduct(product, restaurantId);
+                    productsInMenu.setProductsInCart(product, numProducts);
+                    reservations.put(restaurantId, productsInMenu);
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return reservations;
+    }
 }
