@@ -58,7 +58,10 @@ public class ProductsInMenu {
 
     //updates values and quantities when update menu button is pressed
     public void setProductsInCart(Product product, int quantity){
-        int oldQuantity = productsInMenu.get(product);
+        int oldQuantity = 0;
+        if (productsInMenu.containsKey(product))
+            oldQuantity = productsInMenu.get(product);
+
         if (oldQuantity == quantity) return;
 
         if (oldQuantity > quantity){

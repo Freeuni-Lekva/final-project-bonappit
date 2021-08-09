@@ -25,9 +25,9 @@ public class InviteFriendsServlet extends HttpServlet {
 
         RestaurantsDao restaurantsDao = new RestaurantsDao();
         ProductsInMenu productsInMenu = (ProductsInMenu) req.getSession().getAttribute("products");
-        restaurantsDao.inviteFriendOnReservation(username, restaurantId, friendName, productsInMenu);
+        restaurantsDao.addReservations(username, restaurantId, friendName, productsInMenu);
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" +
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("currentReservations?restaurantId=" +
                 restaurantId + "&username=" + username);
         requestDispatcher.forward(req, resp);
     }

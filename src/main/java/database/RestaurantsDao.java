@@ -15,10 +15,11 @@ public class RestaurantsDao {
     private Connection connection;
     private static final String insertSt = "insert into restaurants values (?, ?, ?, ?);";
     private static final String insertUser = "insert into users values (?, ?, ?, ?);";
-    private static final String insertReservation = "insert into reservations values (?, ?, ?, ?, ?, ?, ?);";
+    private static final String insertReservation = "insert into reservations values (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String removeReservation = "delete from reservations where (username=?) and (restaurantid=?)";
     private static final String removeReservation2 = "delete from reservations where username=?";
-    private static final String insertMenuFriends = "insert into menufriends values (?, ?, ?, ?, ?, ?);";
+    private static final String insertFriend = "insert into friends values (?, ?, ?);";
+    private static final String removeFriendFalse = "delete from friends where (username=?) and (friendname=?)";
 
 
     public RestaurantsDao() {
@@ -321,7 +322,7 @@ public class RestaurantsDao {
         }
     }
 
-    public void addReservations(String username, String restaurantId, ProductsInMenu productsInMenu) {
+    public void addReservations(String username, String restaurantId, String friendName, ProductsInMenu productsInMenu) {
         for (Product product : productsInMenu.getProductsInMenu().keySet()) {
             try {
                 PreparedStatement ps = connection.prepareStatement(insertReservation);
@@ -332,6 +333,7 @@ public class RestaurantsDao {
                 ps.setDouble(5, product.getProductPrice());
                 ps.setInt(6, productsInMenu.getProductsInMenu().get(product));
                 ps.setBoolean(7, false);
+                ps.setString(8, friendName);
 
                 ps.executeUpdate();
             } catch (SQLException throwable) {
@@ -393,7 +395,8 @@ public class RestaurantsDao {
 
         try {
             while (result.next()) {
-                if (username.equals(result.getString("username"))) {
+                String friendName = result.getString("friendname");
+                if (username.equals(result.getString("username")) && friendName.equals("-1")) {
                     String restaurantId = result.getString("restaurantid");
                     if (!reservations.containsKey(restaurantId)){
                         productsInMenu = new ProductsInMenu();
@@ -405,7 +408,6 @@ public class RestaurantsDao {
                     int numProducts = result.getInt("numproducts");
                     Product product = new Product(productName, productPrice);
 
-                    productsInMenu.addProduct(product, restaurantId);
                     productsInMenu.setProductsInCart(product, numProducts);
                     reservations.put(restaurantId, productsInMenu);
                 }
@@ -437,22 +439,50 @@ public class RestaurantsDao {
 
     }
 
-    public void inviteFriendOnReservation(String username, String restaurantId, String friendName, ProductsInMenu productsInMenu){
+
+    public void addFriend(String username, String friendName, boolean mutual) throws SQLException {
         try {
-            PreparedStatement ps = connection.prepareStatement(insertMenuFriends);
+            PreparedStatement ps = connection.prepareStatement(insertFriend);
+            ps.setString(1, username);
+            ps.setString(2, friendName);
+            ps.setBoolean(3, mutual);
 
-            for (Product product : productsInMenu.getProductsInMenu().keySet()) {
-                ps.setString(1, username);
-                ps.setString(2, friendName);
-                ps.setString(3, restaurantId);
-                ps.setString(4, product.getProductName());
-                ps.setDouble(5, product.getProductPrice());
-                ps.setInt(6, productsInMenu.getProductsInMenu().get(product));
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
 
-                ps.executeUpdate();
+    public List<String> friendRequestsReceived(String username){
+        List<String > requests = new ArrayList<>();
+        ResultSet result = getResultSet("friends");
+
+        try {
+            while (result.next()) {
+                String name = result.getString("friendname");
+                if (username.equals(name) && !result.getBoolean("isfriend")) {
+                    requests.add(result.getString("username"));
+                }
             }
-            } catch (SQLException throwable) {
-                throwable.printStackTrace();
-            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return requests;
+
+    }
+
+    public void changeFriendStatus(String username, String friendName){
+        try {
+            PreparedStatement ps;
+            ps = connection.prepareStatement(removeFriendFalse);
+            ps.setString(1, friendName);
+            ps.setString(2, username);
+
+            ps.executeUpdate();
+            addFriend(friendName, username, true);
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+
     }
 }

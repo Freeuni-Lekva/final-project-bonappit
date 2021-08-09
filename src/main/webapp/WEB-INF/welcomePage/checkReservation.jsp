@@ -16,7 +16,7 @@
 <%
     RestaurantsDao restaurantsDao = new RestaurantsDao();
     String username = request.getParameter("username");
-    String restaurantId = request.getParameter("restaurantid");
+    String restaurantId = request.getParameter("restaurantId");
 
     if (restaurantsDao.rejected(username, restaurantId)){
         out.println("<h1>" + username + ", administrator has rejected your reservation offer, pls try other menu or restaurant</h1><br>");

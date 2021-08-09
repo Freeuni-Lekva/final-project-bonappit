@@ -11,8 +11,10 @@ package org.apache.jsp.WEB_002dINF.welcomePage;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import database.RestaurantsDao;
+import java.util.List;
 
-public final class chatPage_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class friendsPage_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final javax.servlet.jsp.JspFactory _jspxFactory =
@@ -59,13 +61,46 @@ public final class chatPage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out = pageContext.getOut();
       _jspx_out = out;
 
+      out.write('\r');
+      out.write('\n');
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+
+    RestaurantsDao restaurantsDao = new RestaurantsDao();
+    String username = request.getParameter("username");
+    List<String> friendsList = restaurantsDao.getFriends(username);
+
       out.write("\r\n");
       out.write("\r\n");
       out.write("<html>\r\n");
       out.write("<head>\r\n");
-      out.write("    <title>Chat</title>\r\n");
+      out.write("    <title>Friends</title>\r\n");
       out.write("</head>\r\n");
       out.write("<body>\r\n");
+      out.write("<h1>Your Friends</h1>\r\n");
+      out.write("\r\n");
+      out.write("<table>\r\n");
+      out.write("    <tr>\r\n");
+      out.write("        <th>Friend</th>\r\n");
+      out.write("        <th>Invite</th>\r\n");
+      out.write("    </tr>\r\n");
+      out.write("\r\n");
+      out.write("    ");
+
+        for(int i = 0; i < friendsList.size(); i++){
+            out.print("<tr><td>" + friendsList.get(i) + "</td>");
+            out.print("<td>");
+            out.print("<form action=\"inviteFriendsServlet\" method=\"post\">");
+            out.print("<a href=\"javascript:;\" onclick=\"parentNode.submit();\">invite</a>");
+            out.println("<input type=\"hidden\" name=\"username\" value='" + request.getParameter("username") + "'>");
+            out.println("<input type=\"hidden\" name=\"restaurantId\" value='" + request.getParameter("restaurantId") + "'>");
+            out.println("<input type=\"hidden\" name=\"friendName\" value='" + friendsList.get(i) + "'>");
+            out.println("</form></td></tr>");
+        }
+    
+      out.write("\r\n");
+      out.write("</table>\r\n");
       out.write("\r\n");
       out.write("</body>\r\n");
       out.write("</html>\r\n");

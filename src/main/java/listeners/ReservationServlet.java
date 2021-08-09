@@ -47,7 +47,7 @@ public class ReservationServlet extends HttpServlet {
             req.getRequestDispatcher("WEB-INF/welcomePage/reservationPage.jsp?restaurantId=" +
                     restaurantId + "&username=" + username).forward(req, resp);
             if (!productsInMenu.getProductsInMenu().isEmpty())
-                restaurantsDao.addReservations(username, restaurantId, productsInMenu);
+                restaurantsDao.addReservations(username, restaurantId, "-1", productsInMenu);
         }
     }
 }

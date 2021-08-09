@@ -33,9 +33,9 @@
             out.print("<td>");
             out.print("<form action=\"inviteFriendsServlet\" method=\"post\">");
             out.print("<a href=\"javascript:;\" onclick=\"parentNode.submit();\">invite</a>");
-            out.println("<input type=\"hidden\" name=\"username\" value=" + request.getParameter("username") + "\">");
-            out.println("<input type=\"hidden\" name=\"restaurantId\" value=" + request.getParameter("restaurantId") + "\">");
-            out.println("<input type=\"hidden\" name=\"friendName\" value=" + friendsList.get(i) + "\">");
+            out.println("<input type=\"hidden\" name=\"username\" value='" + request.getParameter("username") + "'>");
+            out.println("<input type=\"hidden\" name=\"restaurantId\" value='" + request.getParameter("restaurantId") + "'>");
+            out.println("<input type=\"hidden\" name=\"friendName\" value='" + friendsList.get(i) + "'>");
             out.println("</form></td></tr>");
         }
     %>

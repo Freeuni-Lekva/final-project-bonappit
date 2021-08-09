@@ -59,9 +59,9 @@
                     "&username=" + request.getParameter("username") +
             "\">add more products</a>");
 
-    out.print("<br><br><a href=\"friendsPage?restaurantId=" + request.getParameter("restaurantId") +
-            "&username=" + request.getParameter("username") +
-            "\">invite friends on menu</a>");
+//    out.print("<br><br><a href=\"friendsPage?restaurantId=" + request.getParameter("restaurantId") +
+//            "&username=" + request.getParameter("username") +
+//            "\">invite friends on menu</a>");
 %>
 
 </body>

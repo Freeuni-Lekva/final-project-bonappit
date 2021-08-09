@@ -15,9 +15,11 @@
 <p>Please find friend</p>
 
 <form action="addFriendServlet" method="post">
-    <label for="username">User Name:</label><br>
-    <input type="text" id="username" name="username" required/>
-    <button type="submit">Find Friend</button>
+    <label for="friendName">User Name:</label><br>
+    <input type="text" id="friendName" name="friendName" required/>
+    <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+    <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    <button type="submit">Add Friend</button>
 </form>
 
 </body>
