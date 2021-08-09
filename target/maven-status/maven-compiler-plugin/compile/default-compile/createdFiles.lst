@@ -4,6 +4,7 @@ listeners\ManageMenuServlet.class
 javaClasses\MenuReader.class
 database\DB_restaurants.class
 testClasses\TestMenuReader.class
+listeners\ChatServlet.class
 listeners\CreateUserServlet.class
 javaClasses\MostVisitedRestaurant.class
 listeners\LoginServlet.class
