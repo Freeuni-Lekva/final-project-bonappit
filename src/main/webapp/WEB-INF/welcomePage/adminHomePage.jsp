@@ -1,8 +1,17 @@
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
 
+<%@ page import="database.RestaurantsDao" %>
+<%@ page import="javaClasses.Reservation" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="database.RestaurantsDao" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
+<%
+    RestaurantsDao restaurantsDao = new RestaurantsDao();
+    Map<String,Reservation> res = restaurantsDao.getReservationList("0");
+%>
 <html>
 
 <head>
@@ -68,39 +77,20 @@
             <th>R/A</th>
         </tr>
         <%
-            try
-            {
-                Class.forName("com.mysql.jdbc.Driver");
-                String url="jdbc:mysql://localhost/DB_restaurants";
-                String username="root";
-                String password="root";
-                String query="select * from reservations";
-                Connection conn=DriverManager.getConnection(url, username, password);
-                Statement stmt=conn.createStatement();
-                ResultSet rs=stmt.executeQuery(query);
-                while(rs.next())
-                {
-        %>
-                <tr><td><%rs.getString("username"); %></td></tr>
-                <tr><td> <a href="menu?id=">Menu</a></td></tr>
-                 <tr><td><%rs.getString("username"); %></td></tr>
-               <tr> <td><button type="button" onclick="">Reject </button>
-                    <button type="button" onclick="">Accept </button>
-               </td></tr>
-        <%
+            Set<String> resList=res.keySet();
+            for (String key:
+                 resList) {
+
+                out.print("<tr><td>" + res.get(key).getUsername() + "</td>");
+                out.print("<td> <a href=\"menu?id="+request.getParameter("username")+ "\">Menu</a> </td>");
+                out.print("<td>"+res.get(key).getStringStatus()+"</td>");
+                out.print("<td><button type=\"button\" onclick=\"\">Reject </button>\n" +
+                        "                    <button type=\"button\" onclick=\"\">Accept </button>\n" +
+                        "               </td></tr>");
             }
         %>
     </table>
-    <%
-            rs.close();
-            stmt.close();
-            conn.close();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    %>
+
     </form>
 </div>
 </body>
