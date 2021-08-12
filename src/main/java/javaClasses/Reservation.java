@@ -39,4 +39,8 @@ public class Reservation {
     }
     //false=accepted  true=rejected
     public boolean getStatus(){return status;}
+    public String getStringStatus(){
+        if (status) return "rejected";
+        return  "accepted";
+    }
 }
