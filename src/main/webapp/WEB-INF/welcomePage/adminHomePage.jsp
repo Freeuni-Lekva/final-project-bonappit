@@ -4,13 +4,15 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="database.RestaurantsDao" %>
+<%@ page import="javaClasses.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <%
     RestaurantsDao restaurantsDao = new RestaurantsDao();
-    Map<String,Reservation> res = restaurantsDao.getReservationList("0");
+    User user = restaurantsDao.getUserByUsername(request.getParameter("username"));
+    Map<String,Reservation> res = restaurantsDao.getReservationList(user.getRestaurantId());
 %>
 <html>
 
