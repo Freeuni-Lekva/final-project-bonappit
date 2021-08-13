@@ -4,15 +4,13 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="database.RestaurantsDao" %>
-<%@ page import="javaClasses.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <%
     RestaurantsDao restaurantsDao = new RestaurantsDao();
-    User user = restaurantsDao.getUserByUsername(request.getParameter("username"));
-    Map<String,Reservation> res = restaurantsDao.getReservationList(user.getRestaurantId());
+    Map<String,Reservation> res = restaurantsDao.getReservationList("0");
 %>
 <html>
 
@@ -70,28 +68,30 @@
 </center>
 <div align="center">
     <form method="post">
-    <table border="1" cellpadding="3">
-        <caption><h2><%= request.getParameter("username")%></h2></caption>
-        <tr>
-            <th>Name</th>
-            <th>Menu</th>
-            <th>Status</th>
-            <th>R/A</th>
-        </tr>
-        <%
-            Set<String> resList=res.keySet();
-            for (String key:
-                 resList) {
+        <table border="1" cellpadding="3">
+            <caption><h2><%= request.getParameter("username")%></h2></caption>
+            <tr>
+                <th>Name</th>
+                <th>Menu</th>
+                <th>Status</th>
+                <th>R/A</th>
+                <th>End Dinner</th>
+            </tr>
+            <%
+                Set<String> resList=res.keySet();
+                for (String key:
+                        resList) {
 
-                out.print("<tr><td>" + res.get(key).getUsername() + "</td>");
-                out.print("<td> <a href=\"menu?id="+request.getParameter("username")+ "\">Menu</a> </td>");
-                out.print("<td>"+res.get(key).getStringStatus()+"</td>");
-                out.print("<td><button type=\"button\" onclick=\"\">Reject </button>\n" +
-                        "                    <button type=\"button\" onclick=\"\">Accept </button>\n" +
-                        "               </td></tr>");
-            }
-        %>
-    </table>
+                    out.print("<tr><td>" + res.get(key).getUsername() + "</td>");
+                    out.print("<td> <a href=\"manageMenuServlet?restaurantId="+request.getParameter("username")+ "\">Menu</a> </td>");
+                    out.print("<td>"+res.get(key).getStringStatus()+"</td>");
+                    out.print("<td><button type=\"button\" onclick=\"\">Reject </button>\n" +
+                            "                    <button type=\"button\" onclick=\"\">Accept </button>\n" +
+                            "               </td>");
+                    out.print("<td><button type=\"button\" onclick=\"\">End Dinner </button>\n</tr>");
+                }
+            %>
+        </table>
 
     </form>
 </div>
