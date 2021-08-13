@@ -16,4 +16,5 @@ javaClasses\ProductsInMenu.class
 listeners\AddFriendServlet.class
 listeners\ListenerClass.class
 listeners\ReservationServlet.class
+listeners\EvaluateVisitServlet.class
 javaClasses\Reservation.class

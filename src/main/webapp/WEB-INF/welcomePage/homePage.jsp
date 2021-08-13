@@ -20,6 +20,10 @@
         width: 100%;
     }
 
+    body {
+        background-color: gray;
+    }
+
     .Pageheader {
         padding: 10px;
         text-align: center;
@@ -71,7 +75,7 @@
         color: white;
         text-decoration: none;
         font-size: 17px;
-        width: 31%;
+        width: 23%;
         text-align: center;
     }
 
@@ -112,6 +116,9 @@
                 "&username=" + request.getParameter("username") + "\">My Reservations </a>");
         out.print("<a href=\"addFriendServlet?restaurantId=" + request.getParameter("restaurantId") +
                 "&username=" + request.getParameter("username") + "\">Add Friends </a>");
+
+        out.print("<a href=\"evaluateVisitServlet?restaurantId=" + request.getParameter("restaurantId") +
+                "&username=" + request.getParameter("username") + "\">Visits Evaluation</a>");
     %>
 
 </div>

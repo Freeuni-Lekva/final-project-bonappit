@@ -20,6 +20,9 @@ public class RestaurantsDao {
     private static final String removeReservation2 = "delete from reservations where username=?";
     private static final String insertFriend = "insert into friends values (?, ?, ?);";
     private static final String removeFriendFalse = "delete from friends where (username=?) and (friendname=?)";
+    private static final String insertVisit = "insert into visits values (?, ?, ?, ?);";
+    private static final String removeEvaluationRequest = "delete from visits where (username=?) and (restaurantid=?) and (rating=?)";
+
 
 
     public RestaurantsDao() {
@@ -484,5 +487,81 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
 
+    }
+
+    public int getEvaluationRequest(String username, String restaurantId) {
+        ResultSet result = getResultSet("visits");
+
+        try {
+            while (result.next()) {
+                String currUsername = result.getString("username");
+                String currId = result.getString("restaurantid");
+                if (currUsername.equals(username) && currId.equals(restaurantId)) {
+                    if (result.getDouble("rating") == -1)
+                        return -1;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+    public void addRating(String username, String restaurantId, double rating) {
+        ResultSet result = getResultSet("visits");
+        int numVisits = -1;
+        double oldRating = -1;
+
+        try {
+            while (result.next()) {
+                String currUsername = result.getString("username");
+                String currId = result.getString("restaurantid");
+                if (currUsername.equals(username) && currId.equals(restaurantId)) {
+                    oldRating = result.getDouble("rating");
+                    numVisits = result.getInt("numvisits");
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        double newRating = 0;
+        int newNumVisits = 0;
+
+        if (oldRating == -1){
+            newRating = rating;
+            newNumVisits = 1;
+        } else {
+            newNumVisits = numVisits + 1;
+            newRating = (oldRating + rating)/newNumVisits;
+        }
+
+
+        try {
+            PreparedStatement ps;
+            ps = connection.prepareStatement(insertVisit);
+            ps.setString(1, username);
+            ps.setString(2, restaurantId);
+            ps.setInt(3, newNumVisits);
+            ps.setDouble(4, newRating);
+
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    public void removeEvaluationRequest(String username, String restaurantId) {
+        try {
+            PreparedStatement ps;
+            ps = connection.prepareStatement(removeEvaluationRequest);
+            ps.setString(1, username);
+            ps.setString(2, restaurantId);
+            ps.setDouble(3, -1);
+
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
     }
 }

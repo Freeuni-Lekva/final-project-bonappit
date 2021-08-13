@@ -61,6 +61,10 @@
     <servlet-name>addFriendServlet</servlet-name>
     <servlet-class>listeners.AddFriendServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>evaluateVisitServlet</servlet-name>
+    <servlet-class>listeners.EvaluateVisitServlet</servlet-class>
+  </servlet>
 
 
   <servlet-mapping>
@@ -118,6 +122,10 @@
   <servlet-mapping>
     <servlet-name>addFriendServlet</servlet-name>
     <url-pattern>/addFriendServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>evaluateVisitServlet</servlet-name>
+    <url-pattern>/evaluateVisitServlet</url-pattern>
   </servlet-mapping>
 
 
