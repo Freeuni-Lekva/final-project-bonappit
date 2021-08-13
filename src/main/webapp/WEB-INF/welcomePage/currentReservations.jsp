@@ -11,11 +11,56 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .Pageheader {
+        padding: 10px;
+        text-align: center;
+        background: #1abc9c;
+        color: white;
+        font-size: 15px;
+    }
+
+    .links {
+        width: 100%;
+        background-color: #555;
+        overflow: auto;
+    }
+
+    .links a {
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .links a:hover {
+        background-color: #04AA6D;
+    }
+</style>
+
 <head>
     <title>Your Reservations</title>
 </head>
 <body>
-<h1>Your Reservations</h1>
+<div class="Pageheader">
+    <h1>Your Reservations</h1>
+</div>
 
 <%
   RestaurantsDao restaurantDao = new RestaurantsDao();
@@ -40,24 +85,32 @@
               out.print("<td>" + "$" + product.getProductPrice() + "</td>");
               out.print("<td>" + productsInMenu.getProductsInMenu().get(product) + "</td>");
               if (restaurantDao.rejected(username, productsInMenu.getRestaurantId()))
-                  out.print("<td>rejected</td></tr></table><br>");
+                  out.print("<td>rejected</td></tr>");
               else if(restaurantDao.reserved(username, productsInMenu.getRestaurantId()))
-                  out.print("<td>reservation approved by administrator</td></tr></table><br>");
+                  out.print("<td>reservation approved by administrator</td></tr>");
               else
-                  out.print("<td>waiting for administrators' approval</td></tr></table><br>");
+                  out.print("<td>waiting for administrators' approval</td></tr>");
           }
+          out.println("</table><br>");
+          out.println("<div class=\"links\">");
           out.print("<a href=\"reservationServlet?restaurantId=" + id +
                   "&username=" + username + "\">cancel reservation in " +
                   restaurant.getName() + "</a><br>");
 
           out.print("<a href=\"friendsPage?restaurantId=" + id +
                   "&username=" + username + "\">invite friends on reservation</a><br><br>");
+          out.println("</div>");
       }
   }
-
-    out.print("<br><br><a href=\"homePage?restaurantId=" + request.getParameter("restaurantId") +
-            "&username=" + username + "\">return to home page</a>");
   %>
+
+    <br><br>
+    <div class="links">
+        <%
+    out.print("<a href=\"homePage?restaurantId=" + request.getParameter("restaurantId") +
+            "&username=" + username + "\">return to home page</a>");
+    %>
+    </div>
 
 </body>
 </html>

@@ -11,14 +11,116 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
+
+<style>
+    form {
+        border: 1ch solid #f1f1f1;
+        width: 100%;
+    }
+
+    .Pageheader {
+        padding: 10px;
+        text-align: center;
+        background: #1abc9c;
+        color: white;
+        font-size: 15px;
+    }
+
+    #homePageInput {
+        background-position: 10px 11px;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 11px;
+    }
+
+    #thisUl {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #thisUl li a {
+        border: 1px solid #ddd;
+        margin-top: -1px;
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block;
+    }
+
+    #thisUl li a:hover:not(.header) {
+        background-color: #eee;
+    }
+
+    /*now write links style*/
+    .links {
+        width: 100%;
+        background-color: #555;
+        overflow: auto;
+    }
+
+    .links a {
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        width: 31%;
+        text-align: center;
+    }
+
+    .links a:hover {
+        background-color: #04AA6D;
+    }
+
+</style>
+
+<script>
+    function search() {
+        var inp = document.getElementById('homePageInput');
+        var filterRestaurant = inp.value.toUpperCase();
+        var UL = document.getElementById("thisUl");
+        var LItype = UL.getElementsByTagName('li');
+
+        for (var i = 0; i < LItype.length; i++) {
+            var aVar = LItype[i].getElementsByTagName("a")[0];
+            var txtValue = aVar.textContent || aVar.innerText;
+            if (txtValue.toUpperCase().indexOf(filterRestaurant) > -1) {
+                LItype[i].style.display = "";
+            } else {
+                LItype[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
 <head>
     <title>Welcome <%= request.getParameter("username")%></title>
 </head>
 <body>
-<h1>Welcome <%= request.getParameter("username")%></h1>
-<p>Please, choose restaurant <%= request.getParameter("username")%> </p
-<p>Restaurants are sorted by rating </p>
+
+<div class="links">
+    <%
+        out.println("<a href=\"chatPge\">Chat</a>");
+        out.print("<a href=\"currentReservations?restaurantId=" + request.getParameter("restaurantId") +
+                "&username=" + request.getParameter("username") + "\">My Reservations </a>");
+        out.print("<a href=\"addFriendServlet?restaurantId=" + request.getParameter("restaurantId") +
+                "&username=" + request.getParameter("username") + "\">Add Friends </a>");
+    %>
+
+</div>
+
+<div class="Pageheader">
+    <h1>Welcome <%= request.getParameter("username")%></h1>
+    <p>Please, choose restaurant <%= request.getParameter("username")%> </p
+    <p>Restaurants are sorted by rating </p><br>
+</div>
 
 
 <u1>
@@ -58,28 +160,19 @@
         }
     %>
 
+    <input type="text" id="homePageInput" onkeyup="search()" placeholder="search for restaurants...">
+    <ul id="thisUl">
       <%
           quickSort(restaurants, 0, restaurants.size() - 1);
           for(javaClasses.Restaurant restaurant : restaurants) {
             out.print("<li><a href=\"restaurantPage?restaurantId=" + restaurant.getId() +
                     "&username=" + request.getParameter("username") + "\">"
-                    + restaurant.getName() + "</a>" +
-                    " Rating " + restaurant.getRating() + "</li><br></br>");
-            out.println("\n");
+                    + restaurant.getName() + " - Rating " + restaurant.getRating() + "</a></li>");
         }
     %>
+    </ul>
 
 </u1><br>
-
-<a href="chatPge">Open Chat </a><br>
-
-<%
-    out.print("<a href=\"currentReservations?restaurantId=" + request.getParameter("restaurantId") +
-            "&username=" + request.getParameter("username") + "\">My Reservations </a><br>");
-    out.print("<a href=\"addFriendServlet?restaurantId=" + request.getParameter("restaurantId") +
-            "&username=" + request.getParameter("username") + "\">Add Friends </a><br>");
-%>
-
 
 <br>
 <h2>Most visited Restaurants</h2>

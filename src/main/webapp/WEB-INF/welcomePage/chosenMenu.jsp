@@ -13,11 +13,37 @@
 
 
 <html>
+
+<style>
+    .btn-group button {
+        background-color: #04AA6D;
+        border: 1px solid green;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
+        float: left;
+    }
+
+    .btn-group button:not(:last-child) {
+        border-right: none;
+    }
+
+    .btn-group:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .btn-group button:hover {
+        background-color: #3e8e41;
+    }
+</style>
+
 <head>
     <title>Products in Menu</title>
 </head>
 <body>
-<h1>Shopping Cart</h1>
+<h1>Current Menu</h1>
 
     <form action="menuServlet" method="post">
         <ul>
@@ -39,19 +65,20 @@
 
         <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
         <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
-        Total: $<%=productsInMenu.getTotalPrice()%> <button type="submit">Update Menu</button>
+        Total: $<%=productsInMenu.getTotalPrice()%>
+        <div class="btn-group"><button type="submit">Update Menu</button></div>
     </form>
 
     <form action="manageMenuServlet" method="post">
         <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
         <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
-        <button type="submit">Clear Menu</button>
+        <div class="btn-group"><button type="submit">Clear Menu</button></div>
     </form>
 
     <form action="reservationServlet" method="post">
         <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
         <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
-        <button type="submit">Make Reservation</button>
+        <div class="btn-group"><button type="submit">Make Reservation</button></div>
     </form>
 
 <%
@@ -59,9 +86,6 @@
                     "&username=" + request.getParameter("username") +
             "\">add more products</a>");
 
-//    out.print("<br><br><a href=\"friendsPage?restaurantId=" + request.getParameter("restaurantId") +
-//            "&username=" + request.getParameter("username") +
-//            "\">invite friends on menu</a>");
 %>
 
 </body>
