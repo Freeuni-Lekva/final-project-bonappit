@@ -409,7 +409,7 @@ public class RestaurantsDao {
                         double price = Double.parseDouble(result.getString("productprice"));
                         ArrayList<String> menu = new ArrayList<>();
                         menu.add(result.getString("productname"));
-                        Reservation res = new Reservation(username, menu, price, false);
+                        Reservation res = new Reservation(username, menu, price,result.getBoolean("reserved"));
                         reservations.put(username, res);
                     }
                 }
