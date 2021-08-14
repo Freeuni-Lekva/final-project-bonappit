@@ -19,3 +19,4 @@ listeners\ListenerClass.class
 listeners\ReservationServlet.class
 listeners\EvaluateVisitServlet.class
 javaClasses\Reservation.class
+listeners\InviteOnReservationServlet.class

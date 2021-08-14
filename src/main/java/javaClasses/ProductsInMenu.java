@@ -86,4 +86,9 @@ public class ProductsInMenu {
     public String getRestaurantId(){
         return restaurantId;
     }
+
+    public void setRestaurantId(String restaurantId){
+        this.restaurantId = restaurantId;
+    }
+
 }
