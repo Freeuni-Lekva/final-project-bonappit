@@ -84,13 +84,13 @@
                 for (String key:
                         resList) {
 
-                    out.print("<tr><td>" + res.get(key).getUsername() + "</td></tr>");
-                    out.print("<tr><td> <a href=\"adminReservedMenu?username="+res.get(key).getUsername()+
-                            "&restaurantId=" + user.getRestaurantId() + "\">Menu</a> </td></tr>");
-                    out.print("<tr><td>"+res.get(key).getStringStatus()+"</td></tr>");
+                    out.print("<tr><td>" + res.get(key).getUsername() + "</td>");
+                    out.print("<td> <a href=\"adminReservedMenu?username="+res.get(key).getUsername()+
+                            "&restaurantId=" + user.getRestaurantId() + "\">Menu</a> </td>");
+                    out.print("<td>"+res.get(key).getStringStatus()+"</td>");
 
             %>
-            <tr><td> <form action="adminButtons" method="post">
+            <td> <form action="adminButtons" method="post">
                 <input type="hidden" name="button" value=accept">
                 <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
                 <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
@@ -101,8 +101,8 @@
                     <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
                     <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
                     <button type="submit">Reject</button>
-                </form></td></tr>
-            <tr><td> <form action="adminButtons" method="post">
+                </form></td>
+            <td> <form action="adminButtons" method="post">
                 <input type="hidden" name="botton" value=end">
                 <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
                 <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">

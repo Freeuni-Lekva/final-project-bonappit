@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/myservlet")
-public class MyServlet extends HttpServlet {
+@WebServlet("/adminButtons")
+public class adminButtons extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
