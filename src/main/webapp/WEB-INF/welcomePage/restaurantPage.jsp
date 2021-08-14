@@ -114,7 +114,8 @@
             out.print("<a href=\"homePage?restaurantId=" + request.getParameter("restaurantId") +
                     "&username=" + request.getParameter("username") + "\">Home</a>");
             out.print("<a href=\"manageMenuServlet?restaurantId=" + request.getParameter("restaurantId") +
-                    "&username=" + request.getParameter("username") + "\">Show Products in Menu</a>");
+                    "&username=" + request.getParameter("username") +
+                    "&invitation=" + request.getParameter("invitation") + "\">Show Products in Menu</a>");
         %>
     </div>
 
@@ -140,6 +141,7 @@
                        "&productPrice=" + menuList.get(i).getProductPrice() +
                        "&restaurantId=" + request.getParameter("restaurantId") +
                        "&username=" + request.getParameter("username") +
+                       "&invitation=" + request.getParameter("invitation") +
                        "\">Add to Menu</a></td></tr>");
             }
         %>

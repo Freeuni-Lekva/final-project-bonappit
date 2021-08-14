@@ -75,7 +75,7 @@
         color: white;
         text-decoration: none;
         font-size: 17px;
-        width: 23%;
+        width: 18%;
         text-align: center;
     }
 
@@ -119,6 +119,8 @@
 
         out.print("<a href=\"evaluateVisitServlet?restaurantId=" + request.getParameter("restaurantId") +
                 "&username=" + request.getParameter("username") + "\">Visits Evaluation</a>");
+        out.print("<a href=\"inviteOnReservationServlet?restaurantId=" + request.getParameter("restaurantId") +
+                "&username=" + request.getParameter("username") + "\">Invites on Reservation</a>");
     %>
 
 </div>

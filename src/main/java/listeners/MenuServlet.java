@@ -19,14 +19,19 @@ public class MenuServlet extends HttpServlet {
         String productPrice = req.getParameter("productPrice");
         String restaurantId = req.getParameter("restaurantId");
 
-        if (productsInMenu.getRestaurantId() != null)
+        if (productsInMenu.getRestaurantId() != null && !req.getParameter("invitation").equals("null"))
             if (!productsInMenu.getRestaurantId().equals(restaurantId))
                 productsInMenu.clearMenu();
 
         productsInMenu.addProduct(new Product(productName, Double.parseDouble(productPrice)), restaurantId);
 
-        req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" + restaurantId
-        + "&username=" + req.getParameter("username")).forward(req,res);
+        if (req.getParameter("invitation") == null || req.getParameter("invitation").equals("null"))
+            req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" + restaurantId
+            + "&username=" + req.getParameter("username")).forward(req,res);
+        else
+            req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenuFriend.jsp?restaurantId=" + restaurantId
+                    + "&username=" + req.getParameter("username")
+                    + "&invitation=" + req.getParameter("invitation")).forward(req,res);
     }
 
     @Override
@@ -41,8 +46,14 @@ public class MenuServlet extends HttpServlet {
             productsInMenu.setProductsInCart(currProduct, newQuantity);
         }
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" +
-                req.getParameter("restaurantId") + "&username=" + req.getParameter("username"));
-        requestDispatcher.forward(req, resp);
+        if (req.getParameter("invitation") == null || req.getParameter("invitation").equals("null")) {
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenu.jsp?restaurantId=" +
+                    req.getParameter("restaurantId") + "&username=" + req.getParameter("username"));
+            requestDispatcher.forward(req, resp);
+        } else {
+            req.getRequestDispatcher("WEB-INF/welcomePage/chosenMenuFriend.jsp?restaurantId=" +
+                    req.getParameter("restaurantId") + "&username=" + req.getParameter("username")
+                    + "&invitation=" + req.getParameter("invitation")).forward(req, resp);
+        }
     }
 }
