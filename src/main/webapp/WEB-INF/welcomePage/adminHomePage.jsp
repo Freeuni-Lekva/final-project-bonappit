@@ -100,14 +100,14 @@
                     <input type="hidden" name="button" value=reject>
                     <input type="hidden" name="restaurantId" value="<%=user.getRestaurantId()%>">
                     <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
-                    <input type="hidden" name="admin" value="<%=request.getParameter("username")%>">
+                    <input type="hidden" name="admin" value="<%=user.getUsername()%>">
                     <button type="submit">Reject</button>
                 </form></td>
             <td> <form action="adminButtons" method="post">
                 <input type="hidden" name="button" value=end>
                 <input type="hidden" name="restaurantId" value="<%=user.getRestaurantId()%>">
                 <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
-                <input type="hidden" name="admin" value="<%=request.getParameter("username")%>">
+                <input type="hidden" name="admin" value="<%=user.getUsername()%>">
                 <button type="submit">End Dinner</button>
             </form></td></tr>
             <%}%>
