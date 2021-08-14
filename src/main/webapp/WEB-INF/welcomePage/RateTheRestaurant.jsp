@@ -75,6 +75,11 @@
 
 
 <form method="post" action="voting">
+    <div id="star10" class="notation-star"onClick="notation(this.id);"></div>
+    <div id="star9" class="notation-star" onClick="notation(this.id);"></div>
+    <div id="star8" class="notation-star" onClick="notation(this.id);"></div>
+    <div id="star7" class="notation-star" onClick="notation(this.id);"></div>
+    <div id="star6" class="notation-star" onClick="notation(this.id);"></div>
     <div id="star5" class="notation-star" onClick="notation(this.id);"></div>
     <div id="star4" class="notation-star" onClick="notation(this.id);"></div>
     <div id="star3" class="notation-star" onClick="notation(this.id);"></div>

@@ -23,7 +23,7 @@ public class RestaurantsDao {
     private static final String removeFriendFalse = "delete from friends where (username=?) and (friendname=?)";
     private static final String insertVisit = "insert into visits values (?, ?, ?, ?);";
     private static final String removeEvaluationRequest = "delete from visits where (username=?) and (restaurantid=?) and (rating=?)";
-
+    private static final String accept="UPDATE reservations set accepted=true where (username=?,restaurantid=?);";
 
 
     public RestaurantsDao() {
@@ -559,4 +559,25 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
     }
-}
+    public void acceptReservation(String username, String restaurantId) {
+        try {
+            PreparedStatement ps;
+            ps = connection.prepareStatement(accept);
+            ps.setString(1, username);
+            ps.setString(2, restaurantId);
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
+        public void endDinner(String username, String restaurantId) throws SQLException {
+            removeReservation(username,restaurantId);
+            PreparedStatement ps;
+            ps = connection.prepareStatement(insertVisit);
+            ps.setString(1,username);
+            ps.setString(2,restaurantId);
+            ps.setString(3,"1");
+            ps.setString(4,"-1");
+        }
+    }
+
