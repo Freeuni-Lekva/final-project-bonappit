@@ -55,7 +55,7 @@ public class RestaurantsDao {
     }
 
 
-    //gets product from sql database by id
+    //gets user from sql database by name
     public User getUserByUsername(String thisUserName) {
         User user = null;
         ResultSet result = getResultSet("users");
@@ -65,6 +65,31 @@ public class RestaurantsDao {
 
                 String currUserName = result.getString("username");
                 if (currUserName.equals(thisUserName)) {
+                    String username = result.getString("username");
+                    String password = result.getString("password");
+                    boolean isAdmin = result.getBoolean("type");
+                    String restaurantId = result.getString("restaurantid");
+
+                    user = new User(username, password, isAdmin, restaurantId);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
+
+
+    //gets user from sql database by id
+    public User getUserById(String id) {
+        User user = null;
+        ResultSet result = getResultSet("users");
+
+        try {
+            while (result.next()) {
+
+                String currId = result.getString("restaurantid");
+                if (currId.equals(id)) {
                     String username = result.getString("username");
                     String password = result.getString("password");
                     boolean isAdmin = result.getBoolean("type");
@@ -377,6 +402,8 @@ public class RestaurantsDao {
     }
 
     public void changeReservation(String username, String restaurantId, String changerName, ProductsInMenu productsInMenu) {
+        List<String> invitations = getReservationInvitationsList(username, restaurantId);
+
         try {
             PreparedStatement ps;
             ps = connection.prepareStatement(removeReservation3);
@@ -388,8 +415,34 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
 
-        addReservations(username, restaurantId, "-1", productsInMenu);
-        addReservations(username, restaurantId, changerName, productsInMenu);
+        for (int i = 0; i < invitations.size(); i++){
+            String currName = invitations.get(i);
+            addReservations(username, restaurantId, currName, productsInMenu);
+        }
+//        addReservations(username, restaurantId, "-1", productsInMenu);
+//        addReservations(username, restaurantId, changerName, productsInMenu);
+    }
+
+    private List<String> getReservationInvitationsList(String username, String restaurantId) {
+        List<String> invitations = new ArrayList<>();
+        ResultSet result = getResultSet("reservations");
+
+        try {
+            while (result.next()) {
+                String currUsername = result.getString("username");
+                String currId = result.getString("restaurantid");
+                if (currUsername.equals(username) && currId.equals(restaurantId)) {
+                    String friend = result.getString("friendname");
+                    if (!invitations.contains(friend)) {
+                        invitations.add(friend);
+                    }
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return invitations;
     }
 
 
@@ -635,6 +688,7 @@ public class RestaurantsDao {
     //takes invitation on reservation for friend from database
     public String getReservationInvitations(String username, ProductsInMenu productsInMenu) {
         String res = "null";
+        productsInMenu.clearMenu();
         ResultSet result = getResultSet("reservations");
 
         try {
@@ -653,6 +707,27 @@ public class RestaurantsDao {
         return res;
     }
 
+
+    public void getAdminInvitation(String username, ProductsInMenu productsInMenu) {
+        ResultSet result = getResultSet("reservations");
+        productsInMenu.clearMenu();
+
+        try {
+            while (result.next()) {
+                String friendName = result.getString("friendname");
+                String currName = result.getString("username");
+
+                if (friendName.equals("-1") && username.equals(currName)){
+                    addInCart(result, productsInMenu);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
     public void rejectReservation(String username, String restaurantId) {
         try {
             PreparedStatement ps;
@@ -664,4 +739,5 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
     }
+
 }

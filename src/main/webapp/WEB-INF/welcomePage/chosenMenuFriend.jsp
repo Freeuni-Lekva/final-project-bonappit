@@ -51,7 +51,6 @@
         <%
             ProductsInMenu productsInMenu = new ProductsInMenu();
             productsInMenu = (ProductsInMenu) session.getAttribute(productsInMenu.Products);
-            productsInMenu.removeZeroQuantities();
 
             for(Product currProduct : productsInMenu.getProductsInMenu().keySet()){
                 out.println("<li> <input type ='number' value='" + productsInMenu.getProductsInMenu().get(currProduct)
