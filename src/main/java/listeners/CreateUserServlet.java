@@ -26,7 +26,7 @@ public class CreateUserServlet extends HttpServlet {
         String restaurantId = "-1";
 
         User newUser = new User(username, passowrd, isAdmin, restaurantId);
-        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
 
         if (restaurantsDao.getUserByUsername(username) == null) {
             try {

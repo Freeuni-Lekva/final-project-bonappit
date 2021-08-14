@@ -133,7 +133,7 @@
 <u1>
 
     <%
-        RestaurantsDao restaurantDao = new RestaurantsDao();
+        RestaurantsDao restaurantDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
         ArrayList<Restaurant> restaurants = (ArrayList<Restaurant>) restaurantDao.getRestaurants();
         ProductsInMenu productsInMenu = (ProductsInMenu) request.getSession().getAttribute("products");
         productsInMenu.clearMenu();

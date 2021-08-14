@@ -14,7 +14,7 @@
 <body>
 
 <%
-    RestaurantsDao restaurantsDao = new RestaurantsDao();
+    RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
     String username = request.getParameter("username");
     String restaurantId = request.getParameter("restaurantId");
 

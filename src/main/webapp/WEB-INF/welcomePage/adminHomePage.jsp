@@ -4,13 +4,15 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="database.RestaurantsDao" %>
+<%@ page import="javaClasses.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <%
-    RestaurantsDao restaurantsDao = new RestaurantsDao();
-    Map<String,Reservation> res = restaurantsDao.getReservationList("0");
+    RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
+    User user = restaurantsDao.getUserByUsername(request.getParameter("username"));
+    Map<String,Reservation> res = restaurantsDao.getReservationList(user.getRestaurantId());
 %>
 <html>
 
@@ -83,7 +85,8 @@
                         resList) {
 
                     out.print("<tr><td>" + res.get(key).getUsername() + "</td>");
-                    out.print("<td> <a href=\"manageMenuServlet?restaurantId="+request.getParameter("username")+ "\">Menu</a> </td>");
+                    out.print("<td> <a href=\"adminReservedMenu?username="+res.get(key).getUsername()+
+                            "&restaurantId=" + user.getRestaurantId() + "\">Menu</a> </td>");
                     out.print("<td>"+res.get(key).getStringStatus()+"</td>");
                     out.print("<td><button type=\"button\" onclick=\"\">Reject </button>\n" +
                             "                    <button type=\"button\" onclick=\"\">Accept </button>\n" +

@@ -1,6 +1,9 @@
 package listeners;
 
+import database.RestaurantsDao;
 import javaClasses.ProductsInMenu;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -13,7 +16,9 @@ import javax.servlet.http.HttpSessionListener;
 public class ListenerClass implements ServletContextListener, HttpSessionListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-
+        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        ServletContext servletContext = servletContextEvent.getServletContext();
+        servletContext.setAttribute(RestaurantsDao.daoString, restaurantsDao);
     }
 
     @Override

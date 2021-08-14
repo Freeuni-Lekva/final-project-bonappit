@@ -14,7 +14,7 @@ public class EvaluateVisitServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String username = req.getParameter("username");
         String restaurantId = req.getParameter("restaurantId");
-        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
         String attribute = "";
 
         if(restaurantsDao.getEvaluationRequest(username, restaurantId) != -1){

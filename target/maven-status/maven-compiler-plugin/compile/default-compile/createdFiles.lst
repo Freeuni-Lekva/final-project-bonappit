@@ -3,6 +3,7 @@ javaClasses\Product.class
 listeners\ManageMenuServlet.class
 javaClasses\MenuReader.class
 database\DB_restaurants.class
+listeners\AdminReservedMenu.class
 testClasses\TestMenuReader.class
 listeners\CreateUserServlet.class
 javaClasses\MostVisitedRestaurant.class

@@ -12,7 +12,7 @@
 
 
 <%
-    RestaurantsDao restaurantsDao = new RestaurantsDao();
+    RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
     javaClasses.Restaurant currRestaurant = restaurantsDao.getRestaurantById(request.getParameter("restaurantId"));
 
     MenuReader menuReader = new MenuReader();

@@ -12,7 +12,7 @@ public class ReservationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
         ProductsInMenu productsInMenu = (ProductsInMenu) req.getSession().getAttribute("products");
         String restaurantId = req.getParameter("restaurantId");
         String username = req.getParameter("username");
@@ -32,7 +32,7 @@ public class ReservationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
         ProductsInMenu productsInMenu = (ProductsInMenu) req.getSession().getAttribute("products");
         String restaurantId = req.getParameter("restaurantId");
         String username = req.getParameter("username");

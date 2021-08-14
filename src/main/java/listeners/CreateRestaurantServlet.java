@@ -25,7 +25,7 @@ public class CreateRestaurantServlet extends HttpServlet {
         String passowrd = req.getParameter("password");
         boolean isAdmin = true;
 
-        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
         int restaurantId = Integer.parseInt(restaurantsDao.getLastId()) + 1;
         String menuFile = req.getParameter("menu");
         String numTables = req.getParameter("numberTable");

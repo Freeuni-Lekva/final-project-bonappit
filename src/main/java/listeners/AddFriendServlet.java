@@ -28,7 +28,7 @@ public class AddFriendServlet extends HttpServlet {
         String username = req.getParameter("username");
         String restaurantId = req.getParameter("restaurantId");
         String friendName = req.getParameter("friendName");
-        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
         String attribute = "";
 
 

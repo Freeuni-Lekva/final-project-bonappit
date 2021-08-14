@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RestaurantsDao {
+    public static final String daoString = "daoString";
     private Statement statement;
     private Connection connection;
     private static final String insertSt = "insert into restaurants values (?, ?, ?, ?);";
@@ -27,10 +28,8 @@ public class RestaurantsDao {
 
     public RestaurantsDao() {
         DB_restaurants db_products = new DB_restaurants();
-        BasicDataSource dataSource = db_products.getDataSoruce();
-        connection = null;
         try {
-            connection = dataSource.getConnection();
+            connection = db_products.getConnection();
             statement = connection.createStatement();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -40,12 +39,8 @@ public class RestaurantsDao {
     //connector code
     private ResultSet getResultSet(String str) {
         ResultSet result = null;
-        DB_restaurants db_products = new DB_restaurants();
-        BasicDataSource dataSource = db_products.getDataSoruce();
 
-        connection = null;
         try {
-            connection = dataSource.getConnection();
             statement = connection.createStatement();
             String tempString = "select * from " + str + ";";
             result = statement.executeQuery(tempString);
@@ -274,19 +269,19 @@ public class RestaurantsDao {
     //if admin changed menu, we must check in sql database
     public void getChangedMenu(String username, String restaurantId, ProductsInMenu productsInMenu) {
         ResultSet result = getResultSet("reservations");
-        productsInMenu.clearMenu();
+        if(productsInMenu != null)
+            productsInMenu.clearMenu();
 
         try {
             while (result.next()) {
                 String currRestaurant = result.getString("restaurantid");
                 String currUserName = result.getString("username");
 
-                if (currUserName.equals(username) && currRestaurant.equals(restaurantId)) {
+                if (currUserName.equals(username) && currRestaurant.equals(restaurantId) && result.getString("friendname").equals("-1")) {
                     String productName = result.getString("productname");
                     Double productPrice = result.getDouble("productprice");
                     int numProducts = result.getInt("numproducts");
                     Product newProduct = new Product(productName, productPrice);
-                    productsInMenu.addProduct(newProduct, currRestaurant);
                     productsInMenu.setProductsInCart(newProduct, numProducts);
                 }
             }

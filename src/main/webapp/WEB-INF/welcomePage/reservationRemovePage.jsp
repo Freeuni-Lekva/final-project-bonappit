@@ -17,7 +17,7 @@
     if (request.getAttribute("reserved").equals("0"))
         out.println(", you dont have reservation</h1>");
     else{
-        RestaurantsDao restaurantsDao = new RestaurantsDao();
+        RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
         Restaurant restaurant = restaurantsDao.getRestaurantById(request.getParameter("restaurantId"));
         out.println("reservation is successfully cancelled in " + restaurant.getName() + "</h1>");
       }

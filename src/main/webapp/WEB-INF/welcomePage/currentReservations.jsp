@@ -63,7 +63,7 @@
 </div>
 
 <%
-  RestaurantsDao restaurantDao = new RestaurantsDao();
+    RestaurantsDao restaurantDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
   Map<String, ProductsInMenu> reservations = restaurantDao.getUserReservations(request.getParameter("username"));
   String username = request.getParameter("username");
 

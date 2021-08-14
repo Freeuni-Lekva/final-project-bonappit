@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    RestaurantsDao restaurantsDao = new RestaurantsDao();
+    RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
     String username = request.getParameter("username");
     List<String> friendsList = restaurantsDao.getFriends(username);
 %>
