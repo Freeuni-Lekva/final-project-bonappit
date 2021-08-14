@@ -18,7 +18,7 @@
 
 <head>
     <title>
-        Display table with vertical scrollbar
+      <%=  request.getParameter("restaurant") %>
     </title>
 
     <style>
@@ -88,10 +88,10 @@
                     out.print("<td> <a href=\"adminReservedMenu?username="+res.get(key).getUsername()+
                             "&restaurantId=" + user.getRestaurantId() + "\">Menu</a> </td>");
                     out.print("<td>"+res.get(key).getStringStatus()+"</td>");
-                    out.print("<td><button type=\"button\" onclick=\"\">Reject </button>\n" +
-                            "                    <button type=\"button\" onclick=\"\">Accept </button>\n" +
+                    out.print("<td><button type=\"button\" onclick=\"restaurantsDao.removeReservation(username,restaurantId)\">Reject </button>\n" +
+                            "                    <button type=\"button\" onclick=\"restaurantsDao.acceptReservation(username,restaurantId)\">Accept </button>\n" +
                             "               </td>");
-                    out.print("<td><button type=\"button\" onclick=\"\">End Dinner </button>\n</tr>");
+                    out.print("<td><button type=\"button\" onclick=\"restaurantsDao.acceptReservation(username,restaurantId)\">End Dinner </button>\n</tr>");
                 }
             %>
         </table>
