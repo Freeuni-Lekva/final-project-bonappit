@@ -23,6 +23,7 @@ public class RestaurantsDao {
     private static final String removeFriendFalse = "delete from friends where (username=?) and (friendname=?)";
     private static final String insertVisit = "insert into visits values (?, ?, ?, ?);";
     private static final String removeEvaluationRequest = "delete from visits where (username=?) and (restaurantid=?) and (rating=?)";
+    private static final String removeReservation3 = "delete from reservations where (username=?) and (restaurantid=?)";
 
 
 
@@ -278,13 +279,25 @@ public class RestaurantsDao {
                 String currUserName = result.getString("username");
 
                 if (currUserName.equals(username) && currRestaurant.equals(restaurantId) && result.getString("friendname").equals("-1")) {
-                    String productName = result.getString("productname");
-                    Double productPrice = result.getDouble("productprice");
-                    int numProducts = result.getInt("numproducts");
-                    Product newProduct = new Product(productName, productPrice);
-                    productsInMenu.setProductsInCart(newProduct, numProducts);
+                    addInCart(result, productsInMenu);
                 }
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    //private method used for getChangedMenu and getReservationInvitations
+    private void addInCart(ResultSet result, ProductsInMenu productsInMenu) {
+        try {
+            String productName = result.getString("productname");
+            Double productPrice = result.getDouble("productprice");
+            int numProducts = result.getInt("numproducts");
+            Product newProduct = new Product(productName, productPrice);
+            productsInMenu.setProductsInCart(newProduct, numProducts);
+
+            String restaurantId = result.getString("restaurantid");
+            productsInMenu.setRestaurantId(restaurantId);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -357,6 +370,23 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
     }
+
+    public void changeReservation(String username, String restaurantId, String changerName, ProductsInMenu productsInMenu) {
+        try {
+            PreparedStatement ps;
+            ps = connection.prepareStatement(removeReservation3);
+            ps.setString(1, username);
+            ps.setString(2, restaurantId);
+
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+
+        addReservations(username, restaurantId, "-1", productsInMenu);
+        addReservations(username, restaurantId, changerName, productsInMenu);
+    }
+
 
     public Map<String, Reservation> getReservationList(String restaurantid) {
         Map<String, Reservation> reservations = new HashMap<>();
@@ -558,5 +588,26 @@ public class RestaurantsDao {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+    }
+
+    //takes invitation on reservation for friend from database
+    public String getReservationInvitations(String username, ProductsInMenu productsInMenu) {
+        String res = "null";
+        ResultSet result = getResultSet("reservations");
+
+        try {
+            while (result.next()) {
+                String friendName = result.getString("friendname");
+
+                if (friendName.equals(username)){
+                    res = result.getString("username");
+                    addInCart(result, productsInMenu);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return res;
     }
 }
