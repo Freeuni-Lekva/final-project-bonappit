@@ -36,7 +36,7 @@ public class EvaluateVisitServlet extends HttpServlet {
         restaurantsDao.removeEvaluationRequest(username, restaurantId);
         restaurantsDao.addRating(username, restaurantId, rating);
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp?restaurantId=" +
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/rateReceived.jsp?restaurantId=" +
                 restaurantId + "&username=" + username);
         requestDispatcher.forward(req, resp);
     }

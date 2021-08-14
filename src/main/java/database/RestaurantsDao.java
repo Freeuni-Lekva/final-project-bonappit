@@ -23,8 +23,10 @@ public class RestaurantsDao {
     private static final String removeFriendFalse = "delete from friends where (username=?) and (friendname=?)";
     private static final String insertVisit = "insert into visits values (?, ?, ?, ?);";
     private static final String removeEvaluationRequest = "delete from visits where (username=?) and (restaurantid=?) and (rating=?)";
-    private static final String accept="UPDATE reservations set accepted=true where (username=?,restaurantid=?);";
+    private static final String accept="UPDATE reservations set reserved=true where (username=?) and (restaurantid=?);";
     private static final String removeReservation3 = "delete from reservations where (username=?) and (restaurantid=?)";
+    private static final String reject="UPDATE reservations set rejected=true where (username=?) and (restaurantid=?);";
+    private static final String removeVisit = "delete from visits where (username=?) and (restaurantid=?)";
 
 
 
@@ -186,13 +188,15 @@ public class RestaurantsDao {
 
             while (result1.next()) {
                 String curr1 = result1.getString("restaurantid");
-                if (curr1.equals(id)) {
-                    n = result1.getInt("numvisits");
-                    rating = result1.getDouble("rating");
+                if (curr1.equals(id) && result1.getDouble("rating") != -1) {
+                    n += result1.getInt("numvisits");
+                    rating += result1.getDouble("rating");
                 }
             }
             if (n == 0)
                 rating = -1;
+            else
+                rating = rating/n;
 
             restaurant = new Restaurant(name, id, menu, numTable, rating);
 
@@ -438,6 +442,7 @@ public class RestaurantsDao {
                     Product product = new Product(productName, productPrice);
 
                     productsInMenu.setProductsInCart(product, numProducts);
+                    productsInMenu.setRestaurantId(restaurantId);
                     reservations.put(restaurantId, productsInMenu);
                 }
             }
@@ -559,7 +564,18 @@ public class RestaurantsDao {
             newNumVisits = 1;
         } else {
             newNumVisits = numVisits + 1;
-            newRating = (oldRating + rating)/newNumVisits;
+            newRating = (oldRating + rating);
+        }
+
+        try {
+            PreparedStatement ps;
+            ps = connection.prepareStatement(removeVisit);
+            ps.setString(1, username);
+            ps.setString(2, restaurantId);
+
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
 
 
@@ -602,15 +618,17 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
     }
-        public void endDinner(String username, String restaurantId) throws SQLException {
-            removeReservation(username,restaurantId);
-            PreparedStatement ps;
-            ps = connection.prepareStatement(insertVisit);
-            ps.setString(1,username);
-            ps.setString(2,restaurantId);
-            ps.setString(3,"1");
-            ps.setString(4,"-1");
-        }
+
+    public void endDinner(String username, String restaurantId) throws SQLException {
+        removeReservation(username,restaurantId);
+        PreparedStatement ps;
+        ps = connection.prepareStatement(insertVisit);
+        ps.setString(1,username);
+        ps.setString(2,restaurantId);
+        ps.setInt(3,1);
+        ps.setDouble(4,-1);
+
+        ps.executeUpdate();
     }
 
 
@@ -633,5 +651,17 @@ public class RestaurantsDao {
         }
 
         return res;
+    }
+
+    public void rejectReservation(String username, String restaurantId) {
+        try {
+            PreparedStatement ps;
+            ps = connection.prepareStatement(reject);
+            ps.setString(1, username);
+            ps.setString(2, restaurantId);
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
     }
 }

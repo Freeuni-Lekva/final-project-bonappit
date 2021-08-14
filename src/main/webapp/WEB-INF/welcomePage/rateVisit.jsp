@@ -19,7 +19,7 @@
   <h1>Rate your visit</h1>
 
   <form action="evaluateVisitServlet" method="post">
-    <label for="rating">User Name:</label><br>
+    <label for="rating">Rate Restaurant:</label><br>
     <input type="text" id="rating" name="rating" required/>
     <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
     <input type="hidden" name="username" value="<%=request.getParameter("username")%>">

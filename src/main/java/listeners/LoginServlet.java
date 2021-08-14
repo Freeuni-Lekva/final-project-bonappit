@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         if (currUser.getPassword().equals(password)) {
             RequestDispatcher requestDispatcher;
             if(currUser.isAdmin()) {
-                requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/adminHomePage.jsp");
+                requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/adminHomePage.jsp?username=" + username);
             } else {
                 requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp?username=" + username);
             }

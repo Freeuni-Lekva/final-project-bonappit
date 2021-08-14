@@ -18,7 +18,7 @@
 
 <head>
     <title>
-      <%=  request.getParameter("restaurant") %>
+      <%=  user.getUsername() %>
     </title>
 
     <style>
@@ -69,7 +69,6 @@
     <h1>Welcome</h1>
 </center>
 <div align="center">
-    <form method="post">
         <table border="1" cellpadding="3">
             <caption><h2><%= request.getParameter("username")%></h2></caption>
             <tr>
@@ -84,34 +83,36 @@
                 for (String key:
                         resList) {
 
-                    out.print("<tr><td>" + res.get(key).getUsername() + "</td></tr>");
-                    out.print("<tr><td> <a href=\"adminReservedMenu?username="+res.get(key).getUsername()+
-                            "&restaurantId=" + user.getRestaurantId() + "\">Menu</a> </td></tr>");
-                    out.print("<tr><td>"+res.get(key).getStringStatus()+"</td></tr>");
+                    out.print("<tr><td>" + res.get(key).getUsername() + "</td>");
+                    out.print("<td> <a href=\"adminReservedMenu?username="+res.get(key).getUsername()+
+                            "&restaurantId=" + user.getRestaurantId() + "\">Menu</a> </td>");
+                    out.print("<td>"+res.get(key).getStringStatus()+"</td>");
 
             %>
-            <tr><td> <form action="adminButtons" method="post">
-                <input type="hidden" name="button" value=accept">
-                <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+            <td> <form action="adminButtons" method="post">
+                <input type="hidden" name="button" value=accept>
+                <input type="hidden" name="restaurantId" value="<%=user.getRestaurantId()%>">
                 <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
+                <input type="hidden" name="admin" value="<%=request.getParameter("username")%>">
                 <button type="submit">Accept</button>
             </form>
                 <form action="adminButtons" method="post">
-                    <input type="hidden" name="button" value=reject">
-                    <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+                    <input type="hidden" name="button" value=reject>
+                    <input type="hidden" name="restaurantId" value="<%=user.getRestaurantId()%>">
                     <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
+                    <input type="hidden" name="admin" value="<%=request.getParameter("username")%>">
                     <button type="submit">Reject</button>
-                </form></td></tr>
-            <tr><td> <form action="adminButtons" method="post">
-                <input type="hidden" name="botton" value=end">
-                <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+                </form></td>
+            <td> <form action="adminButtons" method="post">
+                <input type="hidden" name="button" value=end>
+                <input type="hidden" name="restaurantId" value="<%=user.getRestaurantId()%>">
                 <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
+                <input type="hidden" name="admin" value="<%=request.getParameter("username")%>">
                 <button type="submit">End Dinner</button>
             </form></td></tr>
             <%}%>
         </table>
 
-    </form>
 </div>
 </body>
 </html>
