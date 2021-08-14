@@ -66,6 +66,10 @@
     <servlet-class>listeners.EvaluateVisitServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>adminReservedMenu</servlet-name>
+    <servlet-class>listeners.AdminReservedMenu</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>inviteOnReservationServlet</servlet-name>
     <servlet-class>listeners.InviteOnReservationServlet</servlet-class>
   </servlet>
@@ -130,6 +134,10 @@
   <servlet-mapping>
     <servlet-name>evaluateVisitServlet</servlet-name>
     <url-pattern>/evaluateVisitServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>adminReservedMenu</servlet-name>
+    <url-pattern>/adminReservedMenu</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>inviteOnReservationServlet</servlet-name>

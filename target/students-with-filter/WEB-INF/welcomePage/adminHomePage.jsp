@@ -22,22 +22,14 @@
     </title>
 
     <style>
-        body {
-            background-color: gray;
-        }
-        title {
-            padding: 10px;
-            text-align: center;
-            background: #1abc9c;
-            color: white;
-            font-size: 15px;
-        }
-
-        table.scrolldown tbody{
+        table.scrolldown{
             width: 100%;
+            /* border-collapse: collapse; */
             border-spacing: 0;
             border: 2px black;
         }
+
+        /* To display the block as level element */
         table.scrolldown tbody, table.scrolldown thead {
             display: -ms-inline-flexbox;
         }
@@ -48,6 +40,8 @@
         }
 
         table.scrolldown tbody {
+
+            /* Set the height of table body */
             height: 50px;
 
             /* Set vertical scroll */
@@ -90,7 +84,7 @@
                         resList) {
 
                     out.print("<tr><td>" + res.get(key).getUsername() + "</td>");
-                    out.print("<td> <a href=\"chosenMenuAdmin?username="+res.get(key).getUsername()+
+                    out.print("<td> <a href=\"adminReservedMenu?username="+res.get(key).getUsername()+
                             "&restaurantId=" + user.getRestaurantId() + "\">Menu</a> </td>");
                     out.print("<td>"+res.get(key).getStringStatus()+"</td>");
 
