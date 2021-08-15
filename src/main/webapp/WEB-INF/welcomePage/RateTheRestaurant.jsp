@@ -80,6 +80,7 @@
 <div class="notation-text">Thank you for choosing us!</div>
 
 
+
 <form method="post" action="evaluateVisitServlet">
     <button name="rating" class="notation-star"type="submit" value="10">
         <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">

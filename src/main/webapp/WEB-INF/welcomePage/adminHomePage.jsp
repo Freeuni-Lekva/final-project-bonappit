@@ -68,15 +68,21 @@
         td {
             text-align:center;
         }
+        h2{
+            color: red;
+        }
     </style>
 </head>
 <body>
 <center>
     <h1>Welcome</h1>
+    <h2>Total Tables Available:<%=restaurantsDao.nTablesAccepted(user.getRestaurantId())%>/<%=restaurantsDao.nTables(user.getRestaurantId())%></h2>
+<% int n=restaurantsDao.nTablesAccepted(user.getRestaurantId())-restaurantsDao.nTables(user.getRestaurantId());
+String N=""+n;%>
 </center>
 <div align="center">
         <table border="1" cellpadding="3">
-            <caption><h2><%= request.getParameter("username")%></h2></caption>
+            <caption><h3><%= request.getParameter("username")%></h3></caption>
             <tr>
                 <th>Name</th>
                 <th>Menu</th>
@@ -100,6 +106,7 @@
                 <input type="hidden" name="restaurantId" value="<%=user.getRestaurantId()%>">
                 <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
                 <input type="hidden" name="admin" value="<%=request.getParameter("username")%>">
+                <input type="hidden" name="tables" value="<%=N%>">
                 <button type="submit">Accept</button>
             </form>
                 <form action="adminButtons" method="post">

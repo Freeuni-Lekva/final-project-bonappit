@@ -14,9 +14,11 @@
         massage="Already Accepted";
     else if(request.getParameter("status").equals("1"))
         massage="Already accepted! Reject is denied!";
-    else if(request.getParameter("status").equals("0"))
-        massage="Dinner does not started yet! Can not end!";
-    %>
+                else if(request.getParameter("status").equals("0"))
+                    massage="Dinner does not started yet! Can not end!";
+                else if(request.getParameter("status").equals("3"))
+                    massage="No free tables available";
+                %>
 
 </head>
 <body>

@@ -3,12 +3,10 @@ package database;
 import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import javaClasses.*;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.junit.runner.Result;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RestaurantsDao {
     public static final String daoString = "daoString";
@@ -723,6 +721,25 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
     }
+    public Integer nTables(String restaurantId) throws SQLException {
+        ResultSet result=getResultSet("restaurants");
+       while(result.next()){
+           if(restaurantId.equals(result.getString("restaurantid")));
+           return result.getInt("numtables");
+        }
+       return 0;
+    }
+    public Integer nTablesAccepted(String restaurantId) throws SQLException {
+        ResultSet result=getResultSet("reservations");
+        Set<String> guests=new HashSet<>();
+        while(result.next()){
+            if(!guests.contains(result.getString("username"))&&result.getString("reserved").equals(true)){
+                guests.add(result.getString("username"));
+            }
+        }
+        return guests.size();
+    }
+
 
     public List<String> getRestaurantToEvaluate(String username) {
         List<String> evaluations = new ArrayList<>();
