@@ -11,7 +11,7 @@ public class Reservation {
         this.username=username;
         this.menu=menu;
         this.price=price;
-        this.status=false;
+        this.status=status;
     }
     public void reject(){
         status=true;

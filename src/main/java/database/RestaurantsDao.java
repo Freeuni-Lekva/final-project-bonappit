@@ -364,6 +364,9 @@ public class RestaurantsDao {
     }
 
     public void addReservations(String username, String restaurantId, String friendName, ProductsInMenu productsInMenu) {
+        if (getReservationInvitationsList(username, restaurantId).contains(friendName))
+            return;
+
         for (Product product : productsInMenu.getProductsInMenu().keySet()) {
             try {
                 PreparedStatement ps = connection.prepareStatement(insertReservation);
@@ -419,8 +422,6 @@ public class RestaurantsDao {
             String currName = invitations.get(i);
             addReservations(username, restaurantId, currName, productsInMenu);
         }
-//        addReservations(username, restaurantId, "-1", productsInMenu);
-//        addReservations(username, restaurantId, changerName, productsInMenu);
     }
 
     private List<String> getReservationInvitationsList(String username, String restaurantId) {
@@ -573,23 +574,6 @@ public class RestaurantsDao {
 
     }
 
-    public int getEvaluationRequest(String username, String restaurantId) {
-        ResultSet result = getResultSet("visits");
-
-        try {
-            while (result.next()) {
-                String currUsername = result.getString("username");
-                String currId = result.getString("restaurantid");
-                if (currUsername.equals(username) && currId.equals(restaurantId)) {
-                    if (result.getDouble("rating") == -1)
-                        return -1;
-                }
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return 0;
-    }
 
     public void addRating(String username, String restaurantId, double rating) {
         ResultSet result = getResultSet("visits");
@@ -738,6 +722,23 @@ public class RestaurantsDao {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+    }
+
+    public List<String> getRestaurantToEvaluate(String username) {
+        List<String> evaluations = new ArrayList<>();
+        ResultSet result = getResultSet("visits");
+
+        try {
+            while (result.next()) {
+                String currUsername = result.getString("username");
+                if (currUsername.equals(username) && result.getDouble("rating") == -1) {
+                   evaluations.add(result.getString("restaurantid"));
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return evaluations;
     }
 
 }

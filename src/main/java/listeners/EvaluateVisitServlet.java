@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class EvaluateVisitServlet extends HttpServlet {
 
@@ -17,11 +18,14 @@ public class EvaluateVisitServlet extends HttpServlet {
         RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
         String attribute = "";
 
-        if(restaurantsDao.getEvaluationRequest(username, restaurantId) != -1){
+        List<String> evaluates = restaurantsDao.getRestaurantToEvaluate(username);
+//        if(restaurantsDao.getEvaluationRequest(username, restaurantId) != -1){
+        if (evaluates.size() <= 0){
             attribute = "You don't have visits to rate";
         }
+
         req.setAttribute("attribute", attribute);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/rateVisit.jsp?restaurantId=" +
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/chooseRestaurantToEvaluate.jsp?restaurantId=" +
                 restaurantId + "&username=" + username);
         requestDispatcher.forward(req, res);
     }
@@ -30,9 +34,10 @@ public class EvaluateVisitServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String restaurantId = req.getParameter("restaurantId");
-        double rating = Double.parseDouble(req.getParameter("rating"));
-        RestaurantsDao restaurantsDao = new RestaurantsDao();
+//        double rating = Double.parseDouble(req.getParameter("rating"));
+        RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
 
+        double rating = Double.parseDouble(req.getParameter("rating"));
         restaurantsDao.removeEvaluationRequest(username, restaurantId);
         restaurantsDao.addRating(username, restaurantId, rating);
 
