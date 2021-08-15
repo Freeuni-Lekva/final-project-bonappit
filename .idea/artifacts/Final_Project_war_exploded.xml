@@ -30,6 +30,8 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:5.2.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-websocket:4.0.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-messaging:4.0.0.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">

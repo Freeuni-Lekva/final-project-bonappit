@@ -77,6 +77,22 @@
     <servlet-name>rateTheRestaurant</servlet-name>
     <jsp-file>/WEB-INF/welcomePage/RateTheRestaurant.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>chat</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/chat.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>chatServlet</servlet-name>
+    <servlet-class>listeners.chatServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>chatClassServlet</servlet-name>
+    <servlet-class>listeners.ChatClassServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>openChat</servlet-name>
+    <servlet-class>listeners.openChat</servlet-class>
+  </servlet>
 
 
   <servlet-mapping>
@@ -150,6 +166,22 @@
   <servlet-mapping>
     <servlet-name>rateTheRestaurant</servlet-name>
     <url-pattern>/rateTheRestaurant</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>chat</servlet-name>
+    <url-pattern>/chat</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>chatServlet</servlet-name>
+    <url-pattern>/chatServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>chatClassServlet</servlet-name>
+    <url-pattern>/chatClassServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>openChat</servlet-name>
+    <url-pattern>/openChat</url-pattern>
   </servlet-mapping>
 
 

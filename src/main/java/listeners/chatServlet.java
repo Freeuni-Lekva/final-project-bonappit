@@ -1,139 +1,70 @@
-package listeners;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-@WebServlet(name = "chatServlet", urlPatterns = {"/chatServlet"})
-public class chatServlet extends HttpServlet {
-
-    String username,tempName;
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-        response.setContentType("text/html;charset=UTF-8");
-
-        try (PrintWriter out = response.getWriter())
-        {
-            /* TODO output your page here. You may use following sample code. */
-
-            String message = request.getParameter("txtMsg");  //Extract Message
-            String username = session.getAttribute("username").toString(); //Extract Username
-
-
-            //Display Chat Room
-            out.println("<html>  <head> <body bgcolor=\"#6495ED\"> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"> <title>Chat Room</title>  </head>");
-            out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"> <center>");
-            out.println("<h2>Hi ");
-            out.println(username);
-            out.println("<br> Welcome to Hello Chat ");
-            out.println("</h2><br><hr>");
-            out.println("  <body>");
-            out.println("      <form name=\"chatWindow\" action=\"chatWindow\">");
-            out.println("Message: <input type=\"text\" name=\"txtMsg\" value=\"\" /><input type=\"submit\" value=\"Send\" name=\"cmdSend\"/>");
-            out.println("<br><br> <a href=\"chatWindow\">Refresh Chat Room</a>");
-            out.println("<br>  <br>");
-            out.println("Messages in Chat Box:");
-            out.println("<br><br>");
-            out.println("<textarea  readonly=\"readonly\"   name=\"txtMessage\" rows=\"20\" cols=\"60\">");
-
-            //If eneterd message != null then insert into database
-            if(request.getParameter("txtMsg")!=null)
-            {
-
-                try
-                {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    java.sql.Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/hello_chat","root","");
-
-                    Statement st=con.createStatement();
-
-
-                    String sql = "insert into hello_message values ('"+username+"','"+message+"')";
-                    st.executeUpdate(sql);
-
-                    st.execute("commit");
-
-                }
-                catch(Exception ex1)
-                {
-                    System.err.println(ex1.getMessage());
-                    String messages = "No";
-                    out.println(messages);
-                }
-            }
-            // Retrieve all messages from database
-
-            try
-            {
-                Class.forName("com.mysql.jdbc.Driver");
-                java.sql.Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/hello_chat","root","");
-
-                Statement st=con.createStatement();
-
-                ResultSet rs=st.executeQuery("select *from hello_message");
-
-                // Print all retrieved messages
-                while(rs.next())
-                {
-                    String messages =rs.getString(1)+ " >> " + rs.getString(2);
-
-                    out.println(messages);
-                }
-
-                con.close();
-            }
-            catch(Exception ex1)
-            {
-                System.err.println(ex1.getMessage());
-            }
-
-            out.println("</textarea>");
-            out.println("<hr>");
-            out.println("</form>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-
-
-    }
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-        //Session
-
-        session = request.getSession();
-
-        if(username!=null)
-        {
-            tempName=username;
-        }
-
-        processRequest(request, response);
-
-    }
-
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-    HttpSession session;
-}
-
+//package listeners;
+//
+//import database.RestaurantsDao;
+//
+//import java.io.IOException;
+//import java.io.PrintWriter;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
+//import javax.servlet.ServletException;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpSession;
+//
+//public class chatServlet extends HttpServlet {
+//
+//    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+////        PrintWriter pw = res.getWriter();
+////        String username = req.getParameter("username");
+////        String to = req.getParameter("to");
+////        String message = req.getParameter("msg");
+////        System.out.println(username);
+////        System.out.println(to);
+////        System.out.println(message);
+////
+////        SimpleDateFormat temp1 = new SimpleDateFormat("dd-MMM-yyyy");
+////        SimpleDateFormat temp2 = new SimpleDateFormat("hh:mm:ss a");
+////
+////        RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
+////
+////        Date date = new Date();
+////        String date1 = temp1.format(date);
+////        String date2 = temp2.format(date);
+//
+//        PrintWriter var3 = res.getWriter();
+//
+//        try {
+//            res.setContentType("text/html");
+//            Class.forName("oracle.jdbc.driver.OracleDriver");
+//            Connection var4 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "akhil");
+//            Statement var5 = var4.createStatement();
+//            String var6 = req.getParameter("uname");
+//            String var7 = req.getParameter("msg");
+//            System.out.println(var6);
+//            System.out.println(var7);
+//
+//            SimpleDateFormat var8 = new SimpleDateFormat("dd-MMM-yyyy");
+//            SimpleDateFormat var9 = new SimpleDateFormat("hh:mm:ss a");
+//            Date var10 = new Date();
+//            String var11 = var8.format(var10);
+//            String var12 = var9.format(var10);
+//            String var13 = "insert into chatting_data values('" + var6 + "','" + var7 + "','" + var11 + "','" + var12 + "',seq_chatting_data.nextval)";
+//            ResultSet var14 = var5.executeQuery(var13);
+//            var14.next();
+//            var4.close();
+//        } catch (Exception var15) {
+//            var15.printStackTrace();
+//            System.out.println("Invalid User");
+//        }
+//
+//    }
+//
+//    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//        this.doGet(req, res);
+//    }
+//}

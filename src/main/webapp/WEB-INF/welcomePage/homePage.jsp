@@ -133,7 +133,8 @@
 
 <div class="links">
     <%
-        out.println("<a href=\"chatPge\">Chat</a>");
+        out.println("<a href=\"chatPge?restaurantId=" + request.getParameter("restaurantId") +
+                "&username=" + request.getParameter("username") + "\">Chat</a>");
         out.print("<a href=\"currentReservations?restaurantId=" + request.getParameter("restaurantId") +
                 "&username=" + request.getParameter("username") + "\">My Reservations </a>");
         out.print("<a href=\"addFriendServlet?restaurantId=" + request.getParameter("restaurantId") +
