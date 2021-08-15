@@ -34,6 +34,10 @@
     <servlet-class>listeners.MenuServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>messageAlertsForAdmin</servlet-name>
+    <jsp-file>WEB-INF/welcomePage/messageAlertsForAdmin.jsp</jsp-file>
+  </servlet>
+  <servlet>
     <servlet-name>manageMenuServlet</servlet-name>
     <servlet-class>listeners.ManageMenuServlet</servlet-class>
   </servlet>
@@ -94,6 +98,10 @@
   <servlet-mapping>
     <servlet-name>chatPge</servlet-name>
     <url-pattern>/chatPge</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>messageAlertsForAdmin</servlet-name>
+    <url-pattern>/messageAlertsForAdmin</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>menuServlet</servlet-name>

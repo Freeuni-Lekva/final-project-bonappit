@@ -81,7 +81,7 @@
 
 
 <form method="post" action="voting">
-    <div id="10" class="notation-star"onClick="notation(this.id);"></div>
+    <button id="10" class="notation-star"type="notation(this.id);"></button>
     <div id="9" class="notation-star" onClick="notation(this.id);"></div>
     <div id="8" class="notation-star" onClick="notation(this.id);"></div>
     <div id="7" class="notation-star" onClick="notation(this.id);"></div>
