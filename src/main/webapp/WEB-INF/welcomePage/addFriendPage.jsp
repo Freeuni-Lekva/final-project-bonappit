@@ -8,19 +8,89 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
+<style>
+    form {
+        border: 1ch solid #f1f1f1;
+        width: 100%;
+    }
+
+    body {
+        text-align: center;
+    }
+
+    .Pageheader {
+        padding: 10px;
+        text-align: center;
+        background: #1abc9c;
+        color: white;
+        font-size: 15px;
+    }
+    input[type=text], input[type=password] {
+        width: 40%;
+        padding: 12px 22px;
+        margin: 7px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+    button {
+        background-color: #04AA6D;
+        color: white;
+        padding: 15px 20px;
+        margin: 7px 0;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+    }
+    button:hover {
+        opacity: 0.8;
+    }
+    .container {
+        padding: 15px;
+    }
+
+    #thisTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 19px;
+    }
+
+    #thisTable th, #thisTable td {
+        text-align: center;
+        padding: 12px;
+    }
+
+    #thisTable tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    #thisTable tr.tableHeader {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+</style>
+
 <head>
     <title>Add Friends</title>
 </head>
 <body>
+
+<div class="Pageheader">
 <h1>Find Friends</h1>
 <p>Please find friend</p>
+</div>
 
 <form action="addFriendServlet" method="post">
-    <label for="friendName">User Name:</label><br>
-    <input type="text" id="friendName" name="friendName" required/>
-    <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
-    <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
-    <button type="submit">Add Friend</button>
+    <div class="container">
+        <label for="friendName">User Name:</label><br>
+        <input type="text" id="friendName" name="friendName" required/>
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+        <button type="submit">Add Friend</button>
+    </div>
 </form>
 
 <%
@@ -28,8 +98,8 @@
     List<String> requests = restaurantsDao.friendRequestsReceived(request.getParameter("username"));
 %>
 
-    <table>
-        <tr>
+    <table id="thisTable">
+        <tr class="tableHeader">
             <th>Friend Requests</th>
         </tr>
 

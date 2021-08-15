@@ -20,14 +20,15 @@ public class adminButtons extends HttpServlet {
         String username=request.getParameter("username");
         String restaurantId=request.getParameter("restaurantId");
         String status=request.getParameter("status");
-        String tables=request.getParameter("tables");
-      RequestDispatcher requestDispatcher = null;
+        String tables = request.getParameter("tables");
         RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
-          if("accept".equals(button)&&"AWAITING".equals(status)&&"0".equals(tables)) {
-              RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
-                      request.getParameter("admin") + "&status=3");
-              requestDispatcher.forward(request, response);
-          } else if ("accept".equals(button)&&"AWAITING".equals(status)) {
+
+        RequestDispatcher requestDispatcher = null;
+        if("accept".equals(button)&&"AWAITING".equals(status)&&"0".equals(tables)) {
+            requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
+                    request.getParameter("admin") + "&status=3");
+            requestDispatcher.forward(request, response);
+        }else if ("accept".equals(button)&&"AWAITING".equals(status)) {
            restaurantsDao.acceptReservation(username,restaurantId);
             requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
                     request.getParameter("admin")+"&status=0");

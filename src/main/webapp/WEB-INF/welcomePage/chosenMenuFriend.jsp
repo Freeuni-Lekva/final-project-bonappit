@@ -15,9 +15,18 @@
 <html>
 
 <style>
+    .Pageheader {
+        padding: 10px;
+        text-align: center;
+        background: #1abc9c;
+        color: white;
+        font-size: 15px;
+    }
+
+
     .btn-group button {
-        background-color: #04AA6D;
-        border: 1px solid green;
+        background-color: #1abc9c;
+        border: #1abc9c;
         color: white;
         padding: 10px 24px;
         cursor: pointer;
@@ -35,15 +44,40 @@
     }
 
     .btn-group button:hover {
-        background-color: #3e8e41;
+        background-color: #1abc9c;
     }
+
+    .links {
+        text-align: center;
+        width: 20%;
+        background-color: #1abc9c;
+        overflow: auto;
+    }
+
+    .links a {
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        width: 90%;
+        text-align: center;
+    }
+
+    .links a:hover {
+        text-align: center;
+        background-color: #555;
+    }
+
 </style>
 
 <head>
     <title>Products in Menu</title>
 </head>
 <body>
-<h1>Current Menu</h1>
+<div class="Pageheader">
+    <h1>Current Menu</h1>
+</div>
 
 <form action="menuServlet" method="post">
     <ul>
@@ -83,12 +117,15 @@
     <div class="btn-group"><button type="submit">Change Reservation</button></div>
 </form>
 
+<div class="links">
 <%
     out.print("<a href=\"restaurantPage?restaurantId=" + request.getParameter("restaurantId") +
             "&username=" + request.getParameter("username") + "&invitation=" + request.getParameter("invitation") +
             "\">add more products</a>");
 
 %>
+</div>
 
 </body>
+
 </html>

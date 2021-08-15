@@ -8,11 +8,44 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
+<style>
+    .Pageheader {
+        padding: 10px;
+        text-align: center;
+        background: #1abc9c;
+        color: white;
+        font-size: 15px;
+    }
+
+    .links {
+        width: 100%;
+        background-color: #555;
+        overflow: auto;
+    }
+
+    .links a {
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        width: 48%;
+        text-align: center;
+    }
+
+    .links a:hover {
+        background-color: #04AA6D;
+    }
+
+</style>
+
 <head>
     <title>Reservation</title>
 </head>
 <body>
 
+<div class="Pageheader">
 <%
     RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
     String username = request.getParameter("username");
@@ -33,14 +66,17 @@
         out.println("<h1>" + username + ", pls wait for administrator's approval</h1><br>");
     }
 %>
+</div>
 
-
+<div class="links">
 <%
     out.print("<a href=\"restaurantPage?restaurantId=" + restaurantId +
-            "&username=" + username + "\">return to products page</a><br><br>");
+            "&username=" + username + "\">return to products page</a>");
 
     out.print("<a href=\"currentReservations?restaurantId=" + restaurantId +
             "&username=" + username + "\">My Reservations </a>");
 %>
+</div>
+
 </body>
 </html>

@@ -83,6 +83,28 @@
         background-color: #04AA6D;
     }
 
+    /*style for below table*/
+    .restLink {
+        width: 100%;
+        background-color: gray;
+        overflow: auto;
+    }
+
+    .restLink a {
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        width: 95%;
+        text-align: left;
+    }
+
+    .restLink a:hover {
+        background-color: #555;
+    }
+
+
 </style>
 
 <script>
@@ -184,8 +206,11 @@
 </u1><br>
 
 <br>
+<div class="Pageheader">
 <h2>Most visited Restaurants</h2>
+</div>
 
+<div class="restLink">
 <%
 
     MostVisitedRestaurant mostVisitedRestaurant = new MostVisitedRestaurant(request.getParameter("username"), restaurantDao);
@@ -193,11 +218,12 @@
 
     for(String id : mostViwed) {
         Restaurant restaurant = restaurantDao.getRestaurantById(id);
-        out.print("<li><a href=\"restaurantPage?restaurantId=" + restaurant.getId() +
+        out.print("<a href=\"restaurantPage?restaurantId=" + restaurant.getId() +
                 "&username=" + request.getParameter("username") + "\">"
-                + restaurant.getName() + "</a></li>");
+                + restaurant.getName() + "</a>");
     }
 %>
+</div>
 
 
 </body>

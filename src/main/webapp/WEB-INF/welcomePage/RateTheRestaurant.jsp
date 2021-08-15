@@ -20,16 +20,19 @@
         body {
             font-family: Verdana, arial;
         }
-        Pageheader {
+
+        .Pageheader {
             padding: 10px;
             text-align: center;
             background: #1abc9c;
             color: white;
             font-size: 15px;
         }
+
         #thisUl li a:hover:not(.header) {
             background-color: #eee;
         }
+
         .notation-text {
             color: #000000;
             font-size: 18px;
@@ -43,8 +46,8 @@
             cursor: pointer;
             display: table-cell;
             float: right;
-            height: 30px;
-            width: 30px;
+            height: 60px;
+            width: 60px;
             padding:  10px;
             background-size: cover;
         }
@@ -61,24 +64,44 @@
             cursor: pointer;
             display: table-cell;
             float: right;
-            height: 64px;
-            width: 64px;
+            height: 84px;
+            width: 84px;
             padding: 0 5px;
             background-image: initial;
+        }
+
+        .links {
+            width: 100%;
+            background-color: gray;
+            overflow: auto;
+        }
+
+        .links a {
+            float: left;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            width: 98%;
+            text-align: center;
+        }
+
+        .links a:hover {
+            background-color: #555;
         }
     </style>
 
 </head>
 <body>
 
+<div class="Pageheader">
 <%
     if (!request.getParameter("attribute").equals("")){
-        out.println("<h1>" + request.getParameter("attribute") +"</h1>");
+        out.println("<h1>" + request.getParameter("attribute") +"</h1></div>");
     } else {
 %>
 
-<div class="notation-text">Thank you for choosing us!</div>
-
+<h1>Thank you for choosing us!</h1></div>
 
 
 <form method="post" action="evaluateVisitServlet">
@@ -128,11 +151,16 @@
     </button>
 
 
+
 <%
     }
+    %>
+    <div class="links">
+    <%
     out.print("<a href=\"homePage?restaurantId=" + request.getParameter("restaurantId") +
             "&username=" + request.getParameter("username") + "\">return to Home</a>");
-%>
+    %>
+    </div>
 
 </body>
 </html>

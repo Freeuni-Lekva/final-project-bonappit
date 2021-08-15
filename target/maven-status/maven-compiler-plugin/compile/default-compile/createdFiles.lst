@@ -2,6 +2,7 @@ database\RestaurantsDao.class
 javaClasses\Product.class
 listeners\ManageMenuServlet.class
 javaClasses\MenuReader.class
+listeners\openChat.class
 database\DB_restaurants.class
 testClasses\TestMenuReader.class
 listeners\CreateUserServlet.class
@@ -16,6 +17,7 @@ javaClasses\User.class
 javaClasses\ProductsInMenu.class
 listeners\AddFriendServlet.class
 listeners\ListenerClass.class
+listeners\chatServlet.class
 listeners\ReservationServlet.class
 listeners\EvaluateVisitServlet.class
 javaClasses\Reservation.class

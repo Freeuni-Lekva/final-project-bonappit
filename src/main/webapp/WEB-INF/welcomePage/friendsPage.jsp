@@ -15,14 +15,53 @@
 %>
 
 <html>
+
+<style>
+    body {
+        text-align: center;
+    }
+
+    .Pageheader {
+        padding: 10px;
+        text-align: center;
+        background: #1abc9c;
+        color: white;
+        font-size: 15px;
+    }
+
+    #thisTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 19px;
+    }
+
+    #thisTable th, #thisTable td {
+        text-align: center;
+        padding: 12px;
+    }
+
+    #thisTable tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    #thisTable tr.tableHeader {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+</style>
+
 <head>
     <title>Friends</title>
 </head>
 <body>
+<div class="Pageheader">
 <h1>Your Friends</h1>
+</div>
 
-<table>
-    <tr>
+<table id="thisTable">
+    <tr class="tableHeader">
         <th>Friend</th>
         <th>Invite</th>
     </tr>

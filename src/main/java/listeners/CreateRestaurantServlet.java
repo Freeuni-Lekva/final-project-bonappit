@@ -8,7 +8,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 
 public class CreateRestaurantServlet extends HttpServlet {
@@ -27,7 +32,13 @@ public class CreateRestaurantServlet extends HttpServlet {
 
         RestaurantsDao restaurantsDao = (RestaurantsDao) req.getServletContext().getAttribute(RestaurantsDao.daoString);
         int restaurantId = Integer.parseInt(restaurantsDao.getLastId()) + 1;
-        String menuFile = req.getParameter("menu");
+        File file = new File(req.getParameter("menu"));
+        String menuFile = file.getName();
+
+        String path = file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - menuFile.length());
+        Files.move(Paths.get(file.getAbsolutePath()), Paths.get(path + "/src/main/java/javaClasses/menuFiles/" + menuFile), StandardCopyOption.REPLACE_EXISTING);
+
+
         String numTables = req.getParameter("numberTable");
 
         User newUser = new User(username, passowrd, isAdmin, String.valueOf(restaurantId));

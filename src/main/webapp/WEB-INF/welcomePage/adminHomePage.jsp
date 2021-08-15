@@ -22,10 +22,7 @@
     </title>
 
     <style>
-        body {
-            background-color: gray;
-        }
-        title {
+        .Pageheader {
             padding: 10px;
             text-align: center;
             background: #1abc9c;
@@ -33,57 +30,40 @@
             font-size: 15px;
         }
 
-        table.scrolldown tbody{
+        #thisTable {
+            border-collapse: collapse;
             width: 100%;
-            border-spacing: 0;
-            border: 2px black;
-        }
-        table.scrolldown tbody, table.scrolldown thead {
-            display: -ms-inline-flexbox;
+            border: 1px solid #ddd;
+            font-size: 19px;
         }
 
-        thead tr th {
-            height: 40px;
-            line-height: 40px;
+        #thisTable th, #thisTable td {
+            text-align: left;
+            padding: 12px;
         }
 
-        table.scrolldown tbody {
-            height: 50px;
-
-            /* Set vertical scroll */
-            overflow-y: auto;
-
-            /* Hide the horizontal scroll */
-            overflow-x: initial;
+        #thisTable tr {
+            border-bottom: 1px solid #ddd;
         }
 
-        tbody {
-            border-top: 2px black;
+        #thisTable tr.tableHeader, #thisTable tr:hover {
+            background-color: #f1f1f1;
         }
 
-        tbody td, thead th {
-            width : 200px;
-            border-right: 2px springgreen;
-        }
-        td {
-            text-align:center;
-        }
-        h2{
-            color: red;
-        }
     </style>
 </head>
 <body>
-<center>
+    <div class="Pageheader">
     <h1>Welcome</h1>
-    <h2>Total Tables Available:<%=restaurantsDao.nTablesAccepted(user.getRestaurantId())%>/<%=restaurantsDao.nTables(user.getRestaurantId())%></h2>
-<% int n=restaurantsDao.nTablesAccepted(user.getRestaurantId())-restaurantsDao.nTables(user.getRestaurantId());
-String N=""+n;%>
-</center>
+        <caption><h2><%= request.getParameter("username")%></h2></caption>
+        <h3>Total Tables Available:<%=restaurantsDao.nTablesAccepted(user.getRestaurantId())%>/<%=restaurantsDao.getRestaurantById(user.getRestaurantId()).getNumTable()%></h3>
+        <% int n=restaurantsDao.nTablesAccepted(user.getRestaurantId())-restaurantsDao.getRestaurantById(user.getRestaurantId()).getNumTable();
+            String N=""+n;%>
+    </div>
+
 <div align="center">
-        <table border="1" cellpadding="3">
-            <caption><h3><%= request.getParameter("username")%></h3></caption>
-            <tr>
+        <table border="1" cellpadding="3" id="thisTable">
+            <tr class="tableHeader">
                 <th>Name</th>
                 <th>Menu</th>
                 <th>Status</th>
@@ -101,12 +81,12 @@ String N=""+n;%>
                     out.print("<td>"+res.get(key).getStringStatus()+"</td>");
             %>
             <td> <form action="adminButtons" method="post">
+                <input type="hidden" name="tables" value="<%=N%>">
                 <input type="hidden" name="button" value=accept>
                 <input type="hidden" name="status" value="<%=res.get(key).getStringStatus()%>">
                 <input type="hidden" name="restaurantId" value="<%=user.getRestaurantId()%>">
                 <input type="hidden" name="username" value="<%=res.get(key).getUsername()%>">
                 <input type="hidden" name="admin" value="<%=request.getParameter("username")%>">
-                <input type="hidden" name="tables" value="<%=N%>">
                 <button type="submit">Accept</button>
             </form>
                 <form action="adminButtons" method="post">

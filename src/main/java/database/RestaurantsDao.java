@@ -3,7 +3,6 @@ package database;
 import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import javaClasses.*;
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.junit.runner.Result;
 
 import java.sql.*;
 import java.util.*;
@@ -721,25 +720,6 @@ public class RestaurantsDao {
             throwable.printStackTrace();
         }
     }
-    public Integer nTables(String restaurantId) throws SQLException {
-        ResultSet result=getResultSet("restaurants");
-       while(result.next()){
-           if(restaurantId.equals(result.getString("restaurantid")));
-           return result.getInt("numtables");
-        }
-       return 0;
-    }
-    public Integer nTablesAccepted(String restaurantId) throws SQLException {
-        ResultSet result=getResultSet("reservations");
-        Set<String> guests=new HashSet<>();
-        while(result.next()){
-            if(!guests.contains(result.getString("username"))&&result.getString("reserved").equals(true)){
-                guests.add(result.getString("username"));
-            }
-        }
-        return guests.size();
-    }
-
 
     public List<String> getRestaurantToEvaluate(String username) {
         List<String> evaluations = new ArrayList<>();
@@ -756,6 +736,19 @@ public class RestaurantsDao {
             throwables.printStackTrace();
         }
         return evaluations;
+    }
+
+
+    public Integer nTablesAccepted(String restaurantId) throws SQLException {
+        ResultSet result=getResultSet("reservations");
+        Set<String> guests=new HashSet<>();
+        while(result.next()){
+            if(!guests.contains(result.getString("username"))&&result.getBoolean("reserved")
+            && result.getString("restaurantid").equals(restaurantId)){
+                guests.add(result.getString("username"));
+            }
+        }
+        return guests.size();
     }
 
 }

@@ -63,8 +63,7 @@
             <input type="text" id="password" name="password"><br>
             <label for="numberTable">Number Table:</label><br>
             <input type="text" id="numberTable" name="numberTable"><br>
-            <label for="menu">Menu:</label><br>
-            <input type="text" id="menu" name="menu"><br>
+            <input type="file" id="menu" name="menu">
             <input type="submit" value="Register">
         </div>
     </form>

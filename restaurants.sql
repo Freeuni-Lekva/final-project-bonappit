@@ -80,6 +80,19 @@ INSERT INTO friends VALUES
     ("xxx", "beqa", true);    
     
 
+DROP TABLE IF EXISTS chat;
+ -- remove table if it already exists and start from scratch
+
+CREATE TABLE chat (
+	messagefrom char(64),
+    messageto char(64),
+    message char(99),
+    senttime int(100)  
+);
+
+INSERT INTO chat VALUES
+	("beqa", "beqa2", "asdasd", 1);
+    
     
 
 select * from restaurants;
@@ -87,4 +100,5 @@ select * from users;
 select * from visits;
 select * from reservations;
 select * from friends;
+select * from chat;
 
