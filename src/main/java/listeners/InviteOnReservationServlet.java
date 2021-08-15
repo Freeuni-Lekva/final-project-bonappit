@@ -52,7 +52,10 @@ public class InviteOnReservationServlet extends HttpServlet {
                     + restaurantsDao.getUserById(restaurantId).getUsername());
             requestDispatcher.forward(req, resp);
         }else {
-            restaurantsDao.changeReservation(invitation, restaurantId, username, productsInMenu);
+            if (!restaurantsDao.reserved(invitation, restaurantId)) {
+                restaurantsDao.changeReservation(invitation, restaurantId, username, productsInMenu);
+            }
+
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/welcomePage/homePage.jsp?restaurantId=" +
                     restaurantId + "&username=" + username);
             requestDispatcher.forward(req, resp);

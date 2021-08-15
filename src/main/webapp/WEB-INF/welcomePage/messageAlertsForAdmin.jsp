@@ -14,16 +14,15 @@
         massage="Already Accepted";
     else if(request.getParameter("status").equals("1"))
         massage="Already accepted! Reject is denied!";
-                else if(request.getParameter("status").equals("0"))
-                    massage="Dinner does not started yet! Can not end!";
-    }
-                %>
+    else if(request.getParameter("status").equals("0"))
+        massage="Dinner does not started yet! Can not end!";
+    %>
 
 </head>
 <body>
 <h1><%=massage%></h1>
 <%
-    out.print("<a href=\"adminHomePage?username=" + request.getParameter("admin") "\">Home Page</a>");
+    out.print("<a href=\"adminHomePage?username=" + request.getParameter("admin") + "\">Home Page</a>");
 %>
 
 </body>
