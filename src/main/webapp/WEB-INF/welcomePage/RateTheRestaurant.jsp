@@ -13,7 +13,7 @@
     <meta charset="UTF-8" />
     <link href="css/style.css" rel="stylesheet" type="text/css">
 
-    <title><%= request.getParameter("restaurant")%></title>
+    <title>Rate your visit</title>
 
 
     <style>
@@ -37,22 +37,15 @@
             margin: 18px;
         }
 
-        .notation-block-star {
-            display: table;
-            margin: 0 auto;
-            width: inherit;
-        }
-
-
         .notation-star {
             background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Empty_Star.svg/2000px-Empty_Star.svg.png");
             background-repeat: no-repeat;
             cursor: pointer;
             display: table-cell;
             float: right;
-            height: 20px;
-            width: 20px;
-            padding:  5px;
+            height: 30px;
+            width: 30px;
+            padding:  10px;
             background-size: cover;
         }
 
@@ -76,25 +69,70 @@
     </style>
 
 </head>
+<body>
+
+<%
+    if (!request.getParameter("attribute").equals("")){
+        out.println("<h1>" + request.getParameter("attribute") +"</h1>");
+    } else {
+%>
 
 <div class="notation-text">Thank you for choosing us!</div>
 
 
-<form method="post" action="voting">
-    <button id="10" class="notation-star"type="notation(this.id);"></button>
-    <div id="9" class="notation-star" onClick="notation(this.id);"></div>
-    <div id="8" class="notation-star" onClick="notation(this.id);"></div>
-    <div id="7" class="notation-star" onClick="notation(this.id);"></div>
-    <div id="6" class="notation-star" onClick="notation(this.id);"></div>
-    <div id="5" class="notation-star" onClick="notation(this.id);"></div>
-    <div id="4" class="notation-star" onClick="notation(this.id);"></div>
-    <div id="3" class="notation-star" onClick="notation(this.id);"></div>
-    <div id="2" class="notation-star" onClick="notation(this.id);"></div>
-    <div id="1" class="notation-star" onClick="notation(this.id);"></div>
-    <input type="hidden" id="notationNote" name="notation_note" value="0">
-    <input type="submit" value="ok"></form>  <br>
 
-<p id="vote"></p>
+<form method="post" action="evaluateVisitServlet">
+    <button name="rating" class="notation-star"type="submit" value="10">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="9">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="8">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="7">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="6">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="5">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="4">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="3">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="2">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="1">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
+    <button name="rating" class="notation-star"type="submit" value="0">
+        <input type="hidden" name="restaurantId" value="<%=request.getParameter("restaurantId")%>">
+        <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
+    </button>
 
+
+<%
+    }
+    out.print("<a href=\"homePage?restaurantId=" + request.getParameter("restaurantId") +
+            "&username=" + request.getParameter("username") + "\">return to Home</a>");
+%>
+
+</body>
 </html>
-

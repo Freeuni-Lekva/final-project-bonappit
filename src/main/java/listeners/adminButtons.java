@@ -21,6 +21,7 @@ public class adminButtons extends HttpServlet {
         String restaurantId=request.getParameter("restaurantId");
         String status=request.getParameter("status");
         String tables=request.getParameter("tables");
+      RequestDispatcher requestDispatcher = null;
         RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
           if("accept".equals(button)&&"AWAITING".equals(status)&&"0".equals(tables)) {
               RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
@@ -28,29 +29,30 @@ public class adminButtons extends HttpServlet {
               requestDispatcher.forward(request, response);
           } else if ("accept".equals(button)&&"AWAITING".equals(status)) {
            restaurantsDao.acceptReservation(username,restaurantId);
-        } else if("accept".equals(button)&&"ACCEPTED".equals(status)){
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
+            requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
                     request.getParameter("admin")+"&status=0");
-            requestDispatcher.forward(request, response);
+        } else if("accept".equals(button)&&"ACCEPTED".equals(status)){
+            requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
+                    request.getParameter("admin")+"&status=0");
         } else if ("reject".equals(button)&&"AWAITING".equals(status)) {
             restaurantsDao.rejectReservation(username,restaurantId);
-        } else if ("reject".equals(button)&&"ACCEPTED".equals(status)) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
+            requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
                     request.getParameter("admin")+"&status=1");
-            requestDispatcher.forward(request, response);
+        } else if ("reject".equals(button)&&"ACCEPTED".equals(status)) {
+            requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
+                    request.getParameter("admin")+"&status=1");
         } else if ("end".equals(button)&&"ACCEPTED".equals(status)) {
             try {
                 restaurantsDao.endDinner(username,restaurantId);
+                requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
+                        request.getParameter("admin")+"&status=2");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         } else if ("end".equals(button)&&"AWAITING".equals(status)) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
+            requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/messageAlertsForAdmin.jsp?username=" +
                     request.getParameter("admin")+"&status=2");
-            requestDispatcher.forward(request, response);
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/welcomePage/adminHomePage.jsp?username=" +
-                request.getParameter("admin"));
         requestDispatcher.forward(request, response);
     }
 

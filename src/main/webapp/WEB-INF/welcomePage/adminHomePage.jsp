@@ -96,10 +96,9 @@ String N=""+n;%>
                         resList) {
 
                     out.print("<tr><td>" + res.get(key).getUsername() + "</td>");
-                    out.print("<td> <a href=\"chosenMenuAdmin?username="+res.get(key).getUsername()+
-                            "&restaurantId=" + user.getRestaurantId() + "\">Menu</a> </td>");
+                    out.print("<td> <a href=\"inviteOnReservationServlet?username="+res.get(key).getUsername()+
+                            "&restaurantId=" + user.getRestaurantId() + "&invitation=-1\">Menu</a> </td>");
                     out.print("<td>"+res.get(key).getStringStatus()+"</td>");
-
             %>
             <td> <form action="adminButtons" method="post">
                 <input type="hidden" name="button" value=accept>

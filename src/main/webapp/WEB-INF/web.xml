@@ -73,6 +73,14 @@
     <servlet-name>inviteOnReservationServlet</servlet-name>
     <servlet-class>listeners.InviteOnReservationServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>adminHomePage</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/adminHomePage.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>rateTheRestaurant</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/RateTheRestaurant.jsp</jsp-file>
+  </servlet>
 
 
   <servlet-mapping>
@@ -142,6 +150,14 @@
   <servlet-mapping>
     <servlet-name>inviteOnReservationServlet</servlet-name>
     <url-pattern>/inviteOnReservationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>adminHomePage</servlet-name>
+    <url-pattern>/adminHomePage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>rateTheRestaurant</servlet-name>
+    <url-pattern>/rateTheRestaurant</url-pattern>
   </servlet-mapping>
 
 

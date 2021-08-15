@@ -1,4 +1,5 @@
-<%--
+<%@ page import="database.RestaurantsDao" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 08-Aug-21
@@ -21,6 +22,24 @@
     <input type="hidden" name="username" value="<%=request.getParameter("username")%>">
     <button type="submit">Add Friend</button>
 </form>
+
+<%
+    RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
+    List<String> requests = restaurantsDao.friendRequestsReceived(request.getParameter("username"));
+%>
+
+    <table>
+        <tr>
+            <th>Friend Requests</th>
+        </tr>
+
+        <tr>
+            <%
+                for(int i = 0; i < requests.size(); i++)
+                    out.print("<td>" + requests.get(i) + "</td>");
+            %>
+        </tr>
+    </table>
 
 </body>
 </html>

@@ -24,7 +24,7 @@
 <body>
 <h1><%=massage%></h1>
 <%
-    out.print("<a href=\"adminHomePage?username=" + request.getParameter("admin") "\">Home Page</a>");
+    out.print("<a href=\"adminHomePage?username=" + request.getParameter("admin") + "\">Home Page</a>");
 %>
 
 </body>
