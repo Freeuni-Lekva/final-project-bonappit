@@ -45,7 +45,92 @@
     .container {
         padding: 16px;
     }
+
+    #message {
+        display:none;
+        background: #f1f1f1;
+        color: #000;
+        position: relative;
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    #message p {
+        padding: 10px 35px;
+        font-size: 18px;
+    }
+
+    .invalid {
+        color: red;
+    }
+
+    .invalid:before {
+        position: relative;
+        left: -35px;
+        content: "&#10006;";
+    }
 </style>
+
+<script>
+    var myInput = document.getElementById("password");
+    var myInput2 = document.getElementById("username");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    myInput.onfocus = function() {
+        document.getElementById("message").style.display = "block";
+    }
+
+    myInput.onblur = function() {
+        document.getElementById("message").style.display = "none";
+    }
+
+    myInput.onkeyup = function() {
+        var numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        if(myInput.value.length <= 8 && myInput.value.length > 0) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+
+        myInput2.onfocus = function() {
+            document.getElementById("message").style.display = "block";
+        }
+
+        myInput2.onblur = function() {
+            document.getElementById("message").style.display = "none";
+        }
+
+        myInput2.onkeyup = function() {
+            var numbers = /[0-9]/g;
+            if (myInput.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+
+            if (myInput.value.length <= 8 && myInput.value.length > 0) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+        }
+    }
+</script>
 
 <head>
     <title>Admin Registration</title>
@@ -58,15 +143,23 @@
             <label for="restaurantName">Restaurant Name:</label><br>
             <input type="text" id="restaurantName" name="restaurantName"><br>
             <label for="username">User Name:</label><br>
-            <input type="text" id="username" name="username"><br>
+            <input type="text" id="username" name="username" pattern="(?=.*\d).{1,8}"
+                   title="Must contain at least one number and maximum 8 or less characters" required><br>
             <label for="password">Password:</label><br>
-            <input type="text" id="password" name="password"><br>
+            <input type="text" id="password" name="password" pattern="(?=.*\d).{1,8}"
+                   title="Must contain at least one number and maximum 8 or less characters" required><br>
             <label for="numberTable">Number Table:</label><br>
             <input type="text" id="numberTable" name="numberTable"><br>
             <input type="file" id="menu" name="menu">
             <input type="submit" value="Register">
         </div>
     </form>
+
+    <div id="message">
+        <h3>must contain the following:</h3>
+        <p id="number" class="invalid">A <b>number</b></p>
+        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+    </div>
 
     <a href="loginServlet" style="color:dodgerblue">return to login </a>
 

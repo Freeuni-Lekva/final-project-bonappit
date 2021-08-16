@@ -26,9 +26,10 @@ CREATE TABLE users (
 );
 
 INSERT INTO users VALUES
-	("saba","saba",true, "1"),
-	("beqa", "beqa",false,"-1"),
-    ("levani", "levani", true, "2");
+	("saba1","saba1",true, "1"),
+	("beqa1", "beqa1",false,"-1"),
+    ("beqa2", "beqa2",false,"-1"),
+    ("levani1", "levani1", true, "2");
 
 
 DROP TABLE IF EXISTS visits;
@@ -42,8 +43,8 @@ CREATE TABLE visits (
 );
 
 INSERT INTO visits VALUES
-	("beqa", "1", 1, 9.5),
-    ("beqa", "2", 1, 8);
+	("beqa1", "1", 1, 9.5),
+    ("beqa1", "2", 1, 8);
    
    
    
@@ -62,7 +63,7 @@ CREATE TABLE reservations (
 );
 
 INSERT INTO reservations VALUES
-	("beqa", "1", true, "try", 3.99, 2, false, "-1");
+	("beqa1", "1", true, "try", 3.99, 2, false, "-1");
     
     
 
@@ -76,8 +77,8 @@ CREATE TABLE friends (
 );
 
 INSERT INTO friends VALUES
-	("beqa", "xxx", true),
-    ("xxx", "beqa", true);    
+	("beqa1", "beqa2", true),
+    ("beqa2", "beqa1", true);    
     
 
 DROP TABLE IF EXISTS chat;
