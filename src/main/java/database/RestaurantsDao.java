@@ -24,6 +24,8 @@ public class RestaurantsDao {
     private static final String removeReservation3 = "delete from reservations where (username=?) and (restaurantid=?)";
     private static final String reject="UPDATE reservations set rejected=true where (username=?) and (restaurantid=?);";
     private static final String removeVisit = "delete from visits where (username=?) and (restaurantid=?)";
+    private static final String insertMessage = "insert into chat values (?, ?, ?);";
+
 
 
 
@@ -38,7 +40,7 @@ public class RestaurantsDao {
     }
 
     //connector code
-    private ResultSet getResultSet(String str) {
+    public ResultSet getResultSet(String str) {
         ResultSet result = null;
 
         try {
@@ -751,4 +753,32 @@ public class RestaurantsDao {
         return guests.size();
     }
 
+    public void addMessage(String username, String to, String message) {
+        try {
+            PreparedStatement ps = connection.prepareStatement(insertMessage);
+            ps.setString(1, username);
+            ps.setString(2, to);
+            ps.setString(3, message);
+
+            ps.executeUpdate();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    public List<String> getUsers() {
+        List<String> users = new ArrayList<>();
+        ResultSet result = getResultSet("users");
+
+        try {
+            while (result.next()) {
+
+                String username = result.getString("username");
+                users.add(username);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return users;
+    }
 }

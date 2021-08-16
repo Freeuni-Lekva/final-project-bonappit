@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/login/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/login" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/welcomePage/RateTheRestaurant.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/welcomePage" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/welcomePage/chat.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/welcomePage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/welcomePage/chosenMenu.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/welcomePage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/welcomePage/messageAlertsForAdmin.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/welcomePage" />
       </map>

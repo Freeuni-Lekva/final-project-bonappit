@@ -82,17 +82,10 @@
     <jsp-file>/WEB-INF/welcomePage/chat.jsp</jsp-file>
   </servlet>
   <servlet>
-    <servlet-name>chatServlet</servlet-name>
-    <servlet-class>listeners.chatServlet</servlet-class>
+    <servlet-name>adminChatPage</servlet-name>
+    <jsp-file>/WEB-INF/welcomePage/adminChatPage.jsp</jsp-file>
   </servlet>
-  <servlet>
-    <servlet-name>chatClassServlet</servlet-name>
-    <servlet-class>listeners.ChatClassServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>openChat</servlet-name>
-    <servlet-class>listeners.openChat</servlet-class>
-  </servlet>
+
 
 
   <servlet-mapping>
@@ -172,16 +165,8 @@
     <url-pattern>/chat</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>chatServlet</servlet-name>
-    <url-pattern>/chatServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>chatClassServlet</servlet-name>
-    <url-pattern>/chatClassServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>openChat</servlet-name>
-    <url-pattern>/openChat</url-pattern>
+    <servlet-name>adminChatPage</servlet-name>
+    <url-pattern>/adminChatPage</url-pattern>
   </servlet-mapping>
 
 

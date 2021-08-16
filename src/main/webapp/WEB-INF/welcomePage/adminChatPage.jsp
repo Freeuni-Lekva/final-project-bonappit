@@ -1,16 +1,30 @@
 <%@ page import="database.RestaurantsDao" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Set" %>
 <%@ page import="javaClasses.Restaurant" %>
+<%@ page import="javaClasses.User" %><%--
+  Created by IntelliJ IDEA.
+  User: User
+  Date: 16-Aug-21
+  Time: 3:50 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
     RestaurantsDao restaurantsDao = (RestaurantsDao) request.getServletContext().getAttribute(RestaurantsDao.daoString);
-    List<String> total = restaurantsDao.getFriends(request.getParameter("username"));
-    List<Restaurant> restaurants = restaurantsDao.getRestaurants();
+    List<String> users = restaurantsDao.getUsers();
+    User user = null;
+    if (request.getParameter("restaurantId") != null) {
+        user = restaurantsDao.getUserById(request.getParameter("restaurantId"));
 
-    for (int i = 0; i < restaurants.size(); i++){
-        total.add(restaurants.get(i).getName());
+    }else {
+        user = restaurantsDao.getUserByUsername(request.getParameter("username"));
     }
+
 %>
+
+<html>
 
 <style>
     .Pageheader {
@@ -61,16 +75,11 @@
 
 </style>
 
-<head>
-
-</head>
-
 <title>Chat</title>
 <body>
 <div class="Pageheader">
-<h1>Welcome to Chat</h1>
+<h1>Welcome</h1>
 </div>
-
 
 <table id="thisTable">
     <tr class="tableHeader">
@@ -78,12 +87,12 @@
     </tr>
 
     <%
-        for(int i = 0; i < total.size(); i++){
+        for(int i = 0; i < users.size(); i++){
             out.print("<tr><td>");
             out.print("<form action=\"chatClassServlet\" method=\"post\">");
-            out.print("<a href=\"javascript:;\" onclick=\"parentNode.submit();\">" + total.get(i) + "</a>");
-            out.println("<input type=\"hidden\" name=\"username\" value='" + request.getParameter("username") + "'>");
-            out.println("<input type=\"hidden\" name=\"to\" value='" + total.get(i) + "'>");
+            out.print("<a href=\"javascript:;\" onclick=\"parentNode.submit();\">" + users.get(i) + "</a>");
+            out.println("<input type=\"hidden\" name=\"username\" value='" + user.getUsername() + "'>");
+            out.println("<input type=\"hidden\" name=\"to\" value='" + users.get(i) + "'>");
             out.println("</form></td></tr>");
         }
     %>
@@ -91,7 +100,8 @@
 
 <div class="links">
 <%
-    out.print("<a href=\"homePage?username=" + request.getParameter("username") + "\">Home</a>");
+    out.print("<a href=\"adminHomePage?restaurantId=" + user.getRestaurantId() +
+            "&username=" + user.getUsername() + "\">Home</a>");
 %>
 </div>
 

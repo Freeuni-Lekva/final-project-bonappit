@@ -87,12 +87,11 @@ DROP TABLE IF EXISTS chat;
 CREATE TABLE chat (
 	messagefrom char(64),
     messageto char(64),
-    message char(99),
-    senttime int(100)  
+    message char(99) 
 );
 
 INSERT INTO chat VALUES
-	("beqa", "beqa2", "asdasd", 1);
+	("beqa1", "beqa2", "asdasd");
     
     
 
